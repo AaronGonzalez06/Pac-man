@@ -19,9 +19,9 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @author Aaron
  */
 public class PacMan extends JFrame {
-    
+
     JPanel panel;
-    JPanel[][] matriz = new JPanel[30][30];
+    JPanel[][] matriz = new JPanel[25][25];
 
     public PacMan() {
         ventana();
@@ -65,18 +65,24 @@ public class PacMan extends JFrame {
 
         this.add(titulo);
     }
-    
-    public void panel(){        
+
+    public void panel() {
         panel = new JPanel();
         panel.setBackground(Color.black);
         panel.setBounds(150, 180, 650, 650);
-        panel.setLayout(new GridLayout(30,30,1,1));
-        
-        for (int x = 0; x < 30; x++) {
-            for (int y = 0; y < 30; y++) {
+        panel.setLayout(new GridLayout(25, 25));
+
+        for (int x = 0; x < 25; x++) {
+            for (int y = 0; y < 25; y++) {
                 matriz[x][y] = new JPanel();
-                if ((x == 4 && y == 4) || (x == 4 && y == 5) || (x == 4 && y == 6)) {
-                    matriz[x][y].setBackground(Color.black);
+                if (x == 0) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 24) {
+                    matriz[x][y].setBackground(Color.blue);
+                }  else if (y == 0) {
+                    matriz[x][y].setBackground(Color.blue);
+                }  else if (y == 24) {
+                    matriz[x][y].setBackground(Color.blue);
                 } else {
                     matriz[x][y].setBackground(Color.gray);
                 }
@@ -85,12 +91,9 @@ public class PacMan extends JFrame {
 
             }
         }
-        
-        
-        
+
         this.add(panel);
-        
-    
+
     }
 
     /**
