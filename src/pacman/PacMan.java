@@ -11,6 +11,7 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
@@ -24,7 +25,7 @@ public class PacMan extends JFrame {
 
     JPanel panel;
     JPanel[][] matriz = new JPanel[25][25];
-    
+
     public PacMan() {
         ventana();
         titulo();
@@ -68,11 +69,6 @@ public class PacMan extends JFrame {
         this.add(titulo);
     }
     
-    @Override
-    public void paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.drawOval(150, 150, 100, 100);        
-    }
     
     public void panel() {
         panel = new JPanel();
@@ -87,14 +83,28 @@ public class PacMan extends JFrame {
                     matriz[x][y].setBackground(Color.blue);
                 } else if (x == 24) {
                     matriz[x][y].setBackground(Color.blue);
-                }  else if (y == 0) {
+                } else if (y == 0) {
                     matriz[x][y].setBackground(Color.blue);
-                }  else if (y == 24) {
+                } else if (y == 24) {
                     matriz[x][y].setBackground(Color.blue);
                 } else {
+
+                    JLabel imagen = new JLabel();
+                    //añadimos la imagen
+                    String nombre = "img/moneda.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    //se crea la imagen y se escala a lo que le hemos dicho con Image.SCALE_DEFAULT
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
+                    //se añade la imagen a la etiqueta
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 25, 25);
+                    //se añade la etiqueta al panel
+                    //panelItro.add(imagen, BorderLayout.EAST);
+                    matriz[x][y].add(imagen);
+
                     matriz[x][y].setBackground(Color.gray);
                 }
-                
+
                 panel.add(matriz[x][y]);
 
             }
