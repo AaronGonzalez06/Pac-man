@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
@@ -18,10 +19,14 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @author Aaron
  */
 public class PacMan extends JFrame {
+    
+    JPanel panel;
+    JPanel[][] matriz = new JPanel[30][30];
 
     public PacMan() {
         ventana();
         titulo();
+        panel();
 
     }
 
@@ -59,6 +64,33 @@ public class PacMan extends JFrame {
         }
 
         this.add(titulo);
+    }
+    
+    public void panel(){        
+        panel = new JPanel();
+        panel.setBackground(Color.black);
+        panel.setBounds(150, 180, 650, 650);
+        panel.setLayout(new GridLayout(30,30,1,1));
+        
+        for (int x = 0; x < 30; x++) {
+            for (int y = 0; y < 30; y++) {
+                matriz[x][y] = new JPanel();
+                if ((x == 4 && y == 4) || (x == 4 && y == 5) || (x == 4 && y == 6)) {
+                    matriz[x][y].setBackground(Color.black);
+                } else {
+                    matriz[x][y].setBackground(Color.gray);
+                }
+
+                panel.add(matriz[x][y]);
+
+            }
+        }
+        
+        
+        
+        this.add(panel);
+        
+    
     }
 
     /**
