@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +24,7 @@ public class PacMan extends JFrame {
 
     JPanel panel;
     JPanel[][] matriz = new JPanel[25][25];
-
+    
     public PacMan() {
         ventana();
         titulo();
@@ -65,7 +67,13 @@ public class PacMan extends JFrame {
 
         this.add(titulo);
     }
-
+    
+    @Override
+    public void paint(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawOval(150, 150, 100, 100);        
+    }
+    
     public void panel() {
         panel = new JPanel();
         panel.setBackground(Color.black);
@@ -86,7 +94,7 @@ public class PacMan extends JFrame {
                 } else {
                     matriz[x][y].setBackground(Color.gray);
                 }
-
+                
                 panel.add(matriz[x][y]);
 
             }
