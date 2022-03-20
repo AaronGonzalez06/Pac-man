@@ -68,8 +68,7 @@ public class PacMan extends JFrame {
 
         this.add(titulo);
     }
-    
-    
+
     public void panel() {
         panel = new JPanel();
         panel.setBackground(Color.black);
@@ -86,6 +85,24 @@ public class PacMan extends JFrame {
                 } else if (y == 0) {
                     matriz[x][y].setBackground(Color.blue);
                 } else if (y == 24) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 2 && y > 1 && y < 23) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 4 && y > 1 && y < 23) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 6 && y > 1 && y < 23) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 8 && y > 1 && y < 23) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 10 && y > 1 && y < 23) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 16 && y > 1 && y < 23) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 18 && y > 1 && y < 23) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 20 && y > 1 && y < 23) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 22 && y > 1 && y < 23) {
                     matriz[x][y].setBackground(Color.blue);
                 } else {
 
@@ -106,7 +123,6 @@ public class PacMan extends JFrame {
                 }
 
                 panel.add(matriz[x][y]);
-
             }
         }
 
