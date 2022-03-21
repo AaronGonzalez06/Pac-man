@@ -86,15 +86,17 @@ public class PacMan extends JFrame {
                     matriz[x][y].setBackground(Color.blue);
                 } else if (y == 24) {
                     matriz[x][y].setBackground(Color.blue);
-                } else if (x == 2 && y > 1 && y < 23) {
+                } else if ((x == 2 && y > 1 && y < 6) || (x == 2 && (y > 7 && y < 13)) || (x == 2 && (y > 14 && y < 21))) {
                     matriz[x][y].setBackground(Color.blue);
-                } else if (x == 4 && y > 1 && y < 23) {
+                } else if ((x == 4 && y > 1 && y < 4) || (x == 4 && (y > 5 && y < 10)) || (x == 4 && (y > 10 && y < 16)) || (x == 4 && (y > 16 && y < 22))) {
                     matriz[x][y].setBackground(Color.blue);
-                } else if (x == 6 && y > 1 && y < 23) {
+                } else if ((x == 6 && y > 1 && y < 15) || (x == 6 && (y > 15 && y < 23))) {
                     matriz[x][y].setBackground(Color.blue);
-                } else if (x == 8 && y > 1 && y < 23) {
+                } else if ((x == 8 && y > 1 && y < 9) || (x == 8 && (y > 9 && y < 23))) {
                     matriz[x][y].setBackground(Color.blue);
-                } else if (x == 10 && y > 1 && y < 23) {
+                } else if ((x == 10 && y > 1 && y < 9) || (x == 10 && (y > 9 && y < 18)) || (x == 10 && (y > 18 && y < 23))) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if ((x == 12 && (y > 1 && y < 5)) || (x == 12 && (y > 6 && y < 11)) || (x == 12 && (y > 12 && y < 22))) {
                     matriz[x][y].setBackground(Color.blue);
                 } else if (x == 16 && y > 1 && y < 23) {
                     matriz[x][y].setBackground(Color.blue);
