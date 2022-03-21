@@ -14,6 +14,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.function.Consumer;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -25,6 +27,8 @@ public class PacMan extends JFrame {
 
     JPanel panel;
     JPanel[][] matriz = new JPanel[25][25];
+    ArrayList monedas = new ArrayList();
+    Personaje Pacman;
 
     public PacMan() {
         ventana();
@@ -106,30 +110,31 @@ public class PacMan extends JFrame {
                     matriz[x][y].setBackground(Color.blue);
                 } else if (x == 18 && y > 4 && y < 20) {
                     matriz[x][y].setBackground(Color.blue);
-                }  else if (x == 21 && y > 7 && y < 17) {
+                } else if (x == 21 && y > 7 && y < 17) {
                     matriz[x][y].setBackground(Color.blue);
-                } /*else if (x == 18 && y > 1 && y < 23) {
-                    matriz[x][y].setBackground(Color.blue);
-                } else if (x == 20 && y > 1 && y < 23) {
-                    matriz[x][y].setBackground(Color.blue);
-                } else if (x == 22 && y > 1 && y < 23) {
-                    matriz[x][y].setBackground(Color.blue);
-                } */ else {
-
-                    JLabel imagen = new JLabel();
-                    //añadimos la imagen
-                    String nombre = "img/moneda.png";
-                    ImageIcon imageicon = new ImageIcon(nombre);
-                    //se crea la imagen y se escala a lo que le hemos dicho con Image.SCALE_DEFAULT
-                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
-                    //se añade la imagen a la etiqueta
+                } else if (x == 17 && y == 12) {
+                    JLabel imagen = new JLabel();                    
+                    String nombre = "img/comecoco.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);                    
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));                    
                     imagen.setIcon(icon);
-                    imagen.setBounds(0, 0, 25, 25);
-                    //se añade la etiqueta al panel
-                    //panelItro.add(imagen, BorderLayout.EAST);
+                    imagen.setBounds(0, 0, 22, 22);                    
                     matriz[x][y].add(imagen);
-
-                    matriz[x][y].setBackground(Color.gray);
+                    matriz[x][y].setBackground(Color.black);
+                    
+                    //creamos el objeto PAcmen
+                    Pacman = new Personaje(x,y,"a","b");
+                    
+                } else {
+                    JLabel imagen = new JLabel();                    
+                    String nombre = "img/moneda.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);                    
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));                    
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);                    
+                    matriz[x][y].add(imagen);
+                    monedas.add(new Moneda(x, y, true));
+                    matriz[x][y].setBackground(Color.black);
                 }
 
                 panel.add(matriz[x][y]);
@@ -137,7 +142,7 @@ public class PacMan extends JFrame {
         }
 
         this.add(panel);
-
+        System.out.println(monedas.size());
     }
 
     /**
