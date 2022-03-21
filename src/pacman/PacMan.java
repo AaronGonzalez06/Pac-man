@@ -98,15 +98,23 @@ public class PacMan extends JFrame {
                     matriz[x][y].setBackground(Color.blue);
                 } else if ((x == 12 && (y > 1 && y < 5)) || (x == 12 && (y > 6 && y < 11)) || (x == 12 && (y > 12 && y < 22))) {
                     matriz[x][y].setBackground(Color.blue);
-                } else if (x == 16 && y > 1 && y < 23) {
+                } else if ((x == 14 && y > 1 && y < 16) || (x == 14 && (y > 16 && y < 23))) {
                     matriz[x][y].setBackground(Color.blue);
-                } else if (x == 18 && y > 1 && y < 23) {
+                } else if ((y == 2 && x > 15 && x < 23) || (y == 22 && x > 15 && x < 23) || (y == 6 && x > 19 && x < 23) || (y == 18 && x > 19 && x < 23) || (y == 4 && x > 17 && x < 23) || (y == 20 && x > 17 && x < 23)) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 16 && y > 3 && y < 21) {
+                    matriz[x][y].setBackground(Color.blue);
+                } else if (x == 18 && y > 4 && y < 20) {
+                    matriz[x][y].setBackground(Color.blue);
+                }  else if (x == 21 && y > 7 && y < 17) {
+                    matriz[x][y].setBackground(Color.blue);
+                } /*else if (x == 18 && y > 1 && y < 23) {
                     matriz[x][y].setBackground(Color.blue);
                 } else if (x == 20 && y > 1 && y < 23) {
                     matriz[x][y].setBackground(Color.blue);
                 } else if (x == 22 && y > 1 && y < 23) {
                     matriz[x][y].setBackground(Color.blue);
-                } else {
+                } */ else {
 
                     JLabel imagen = new JLabel();
                     //añadimos la imagen
