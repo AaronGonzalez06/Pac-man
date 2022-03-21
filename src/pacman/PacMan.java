@@ -12,6 +12,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class PacMan extends JFrame {
         ventana();
         titulo();
         panel();
-
+        logica();
     }
 
     public void ventana() {
@@ -113,25 +115,25 @@ public class PacMan extends JFrame {
                 } else if (x == 21 && y > 7 && y < 17) {
                     matriz[x][y].setBackground(Color.blue);
                 } else if (x == 17 && y == 12) {
-                    JLabel imagen = new JLabel();                    
+                    JLabel imagen = new JLabel();
                     String nombre = "img/comecoco.png";
-                    ImageIcon imageicon = new ImageIcon(nombre);                    
-                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));                    
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                     imagen.setIcon(icon);
-                    imagen.setBounds(0, 0, 22, 22);                    
+                    imagen.setBounds(0, 0, 22, 22);
                     matriz[x][y].add(imagen);
                     matriz[x][y].setBackground(Color.black);
-                    
+
                     //creamos el objeto PAcmen
-                    Pacman = new Personaje(x,y,"a","b");
-                    
+                    Pacman = new Personaje(x, y, "a", "b");
+
                 } else {
-                    JLabel imagen = new JLabel();                    
+                    JLabel imagen = new JLabel();
                     String nombre = "img/moneda.png";
-                    ImageIcon imageicon = new ImageIcon(nombre);                    
-                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));                    
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                     imagen.setIcon(icon);
-                    imagen.setBounds(0, 0, 22, 22);                    
+                    imagen.setBounds(0, 0, 22, 22);
                     matriz[x][y].add(imagen);
                     monedas.add(new Moneda(x, y, true));
                     matriz[x][y].setBackground(Color.black);
@@ -143,6 +145,67 @@ public class PacMan extends JFrame {
 
         this.add(panel);
         System.out.println(monedas.size());
+    }
+
+    public void logica() {
+        System.out.println(Pacman.getEjeX());
+        System.out.println(Pacman.getEjeY());
+
+        this.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                //cuando soltamos la tecla
+
+                if (e.getKeyChar() == 'd') {
+                    //derecha
+                    //ejespacman
+                    System.out.println("derecha");
+                    int ejeX = Pacman.getEjeX();
+                    int ejeY = Pacman.getEjeY();
+                    int derecha = Pacman.getEjeY() + 1;                                        
+                    //reseteamos panel derecho
+                    matriz[ejeX][derecha].removeAll();
+                    matriz[ejeX][derecha].repaint();
+                    
+                    
+                    JLabel imagen = new JLabel();
+                    String nombre = "img/comecoco.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);
+                    matriz[ejeX][derecha].add(imagen);
+                    matriz[ejeX][derecha].setBackground(Color.black);
+                    //elimina todo la posicion actual donde esta el pacman
+                    matriz[ejeX][ejeY].removeAll();
+                    matriz[ejeX][ejeY].repaint();
+                    
+                    Pacman.setEjeY(derecha);
+
+                } else if (e.getKeyChar() == 'a') {
+                    //izquierda
+
+                } else if (e.getKeyChar() == 'w') {
+                    //para arriba funciona
+
+                } else if (e.getKeyChar() == 's') {
+                    //abajo funciona
+
+                }
+
+            }
+
+        }
+        );
+
     }
 
     /**
