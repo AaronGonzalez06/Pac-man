@@ -174,6 +174,11 @@ public class PacMan extends JFrame {
                     matriz[ejeX][derecha].removeAll();
                     matriz[ejeX][derecha].repaint();
 
+                    /*
+                    pruebas
+                     */
+                    System.out.println(matriz[ejeX][derecha]);
+
                     JLabel imagen = new JLabel();
                     String nombre = "img/comecoco.png";
                     ImageIcon imageicon = new ImageIcon(nombre);
@@ -237,7 +242,7 @@ public class PacMan extends JFrame {
 
                 } else if (e.getKeyChar() == 's') {
                     //abajo funciona
-                    
+
                     int ejeX = Pacman.getEjeX();
                     int ejeY = Pacman.getEjeY();
                     int abajo = Pacman.getEjeX() + 1;
