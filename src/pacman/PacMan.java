@@ -12,6 +12,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -36,11 +38,27 @@ public class PacMan extends JFrame {
     int num = 0;
     boolean colision = false;
 
+    //movimientos
+    boolean derechaM = false;
+    boolean izquierdaM = false;
+    boolean arribaM = false;
+    boolean abajoM = false;
+
+    Timer timer = new Timer(200, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ganar();
+            seguirMovimientos();
+        }
+    });
+
     public PacMan() {
         ventana();
         titulo();
         panel();
         logica();
+        timer.start();
+        seguirMovimientos();
     }
 
     public void ventana() {
@@ -238,6 +256,10 @@ public class PacMan extends JFrame {
                         matriz[ejeX][ejeY].repaint();
 
                         Pacman.setEjeY(derecha);
+                        derechaM = true;
+                        izquierdaM = false;
+                        arribaM = false;
+                        abajoM = false;
 
                     }
 
@@ -288,6 +310,11 @@ public class PacMan extends JFrame {
                         matriz[ejeX][ejeY].repaint();
 
                         Pacman.setEjeY(izquierda);
+
+                        derechaM = false;
+                        izquierdaM = true;
+                        arribaM = false;
+                        abajoM = false;
 
                     }
 
@@ -340,6 +367,11 @@ public class PacMan extends JFrame {
 
                         Pacman.setEjeX(arriba);
 
+                        derechaM = false;
+                        izquierdaM = false;
+                        arribaM = true;
+                        abajoM = false;
+
                     }
 
                 } else if (e.getKeyChar() == 's') {
@@ -391,6 +423,11 @@ public class PacMan extends JFrame {
 
                         Pacman.setEjeX(abajo);
 
+                        derechaM = false;
+                        izquierdaM = false;
+                        arribaM = false;
+                        abajoM = true;
+
                     }
                 }
 
@@ -399,6 +436,234 @@ public class PacMan extends JFrame {
         }
         );
 
+    }
+
+    public void ganar() {
+        if (num == 331) {
+            JOptionPane.showMessageDialog(null, "Has ganado");
+        }
+    }
+
+    public void seguirMovimientos() {
+        if (derechaM) {
+
+            int ejeX = Pacman.getEjeX();
+            int ejeY = Pacman.getEjeY();
+            int derecha = Pacman.getEjeY() + 1;
+
+            for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if ((monedaX == ejeX) && (monedaY == derecha) && coordenadasMoneda.isEstado() == true) {
+                    System.out.println("yes");
+                    puntuacion.setText("Puntuación: " + num++);
+                    coordenadasMoneda.setEstado(false);
+                }
+            }
+
+            for (int x = 0; x < pared.size(); x++) {
+                Estado coordenadasPared = (Estado) pared.get(x);
+                int paredX = coordenadasPared.getEjeX();
+                int paredY = coordenadasPared.getEjeY();
+                if ((paredX == ejeX) && (paredY == derecha) && coordenadasPared.isEstado() == true) {
+                    colision = true;
+                }
+            }
+
+            if (colision == true) {
+                colision = false;
+            } else {
+
+                //reseteamos panel derecho
+                matriz[ejeX][derecha].removeAll();
+                matriz[ejeX][derecha].repaint();
+                JLabel imagen = new JLabel();
+                String nombre = "img/comecoco.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[ejeX][derecha].add(imagen);
+                matriz[ejeX][derecha].setBackground(Color.black);
+                //elimina todo la posicion actual donde esta el pacman
+                matriz[ejeX][ejeY].removeAll();
+                matriz[ejeX][ejeY].repaint();
+
+                Pacman.setEjeY(derecha);
+                derechaM = true;
+                izquierdaM = false;
+                arribaM = false;
+                abajoM = false;
+
+            }
+
+        } else if (izquierdaM) {
+
+            int ejeX = Pacman.getEjeX();
+            int ejeY = Pacman.getEjeY();
+            int izquierda = Pacman.getEjeY() - 1;
+
+            for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if ((monedaX == ejeX) && (monedaY == izquierda) && coordenadasMoneda.isEstado() == true) {
+                    System.out.println("yes");
+                    puntuacion.setText("Puntuación: " + num++);
+                    coordenadasMoneda.setEstado(false);
+                }
+            }
+
+            for (int x = 0; x < pared.size(); x++) {
+                Estado coordenadasPared = (Estado) pared.get(x);
+                int paredX = coordenadasPared.getEjeX();
+                int paredY = coordenadasPared.getEjeY();
+                if ((paredX == ejeX) && (paredY == izquierda) && coordenadasPared.isEstado() == true) {
+                    colision = true;
+                }
+            }
+
+            if (colision == true) {
+                colision = false;
+            } else {
+
+                matriz[ejeX][izquierda].removeAll();
+                matriz[ejeX][izquierda].repaint();
+
+                JLabel imagen = new JLabel();
+                String nombre = "img/comecoco.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[ejeX][izquierda].add(imagen);
+                matriz[ejeX][izquierda].setBackground(Color.black);
+                //elimina todo la posicion actual donde esta el pacman
+                matriz[ejeX][ejeY].removeAll();
+                matriz[ejeX][ejeY].repaint();
+
+                Pacman.setEjeY(izquierda);
+
+                derechaM = false;
+                izquierdaM = true;
+                arribaM = false;
+                abajoM = false;
+
+            }
+
+        } else if (arribaM) {
+
+            int ejeX = Pacman.getEjeX();
+            int ejeY = Pacman.getEjeY();
+            int arriba = Pacman.getEjeX() - 1;
+            //reseteamos panel derecho
+            for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if ((monedaX == arriba) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
+                    System.out.println("yes");
+                    puntuacion.setText("Puntuación: " + num++);
+                    coordenadasMoneda.setEstado(false);
+                }
+            }
+
+            for (int x = 0; x < pared.size(); x++) {
+                Estado coordenadasPared = (Estado) pared.get(x);
+                int paredX = coordenadasPared.getEjeX();
+                int paredY = coordenadasPared.getEjeY();
+                if ((paredX == arriba) && (paredY == ejeY) && coordenadasPared.isEstado() == true) {
+                    colision = true;
+                }
+            }
+
+            if (colision == true) {
+                colision = false;
+            } else {
+
+                matriz[arriba][ejeY].removeAll();
+                matriz[arriba][ejeY].repaint();
+
+                JLabel imagen = new JLabel();
+                String nombre = "img/comecoco.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[arriba][ejeY].add(imagen);
+                matriz[arriba][ejeY].setBackground(Color.black);
+                //elimina todo la posicion actual donde esta el pacman
+                matriz[ejeX][ejeY].removeAll();
+                matriz[ejeX][ejeY].repaint();
+
+                Pacman.setEjeX(arriba);
+
+                derechaM = false;
+                izquierdaM = false;
+                arribaM = true;
+                abajoM = false;
+
+            }
+
+        } else if (abajoM) {
+
+            int ejeX = Pacman.getEjeX();
+            int ejeY = Pacman.getEjeY();
+            int abajo = Pacman.getEjeX() + 1;
+            //reseteamos panel derecho
+            for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if ((monedaX == abajo) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
+                    System.out.println("yes");
+                    puntuacion.setText("Puntuación: " + num++);
+                    coordenadasMoneda.setEstado(false);
+                }
+            }
+
+            for (int x = 0; x < pared.size(); x++) {
+                Estado coordenadasPared = (Estado) pared.get(x);
+                int paredX = coordenadasPared.getEjeX();
+                int paredY = coordenadasPared.getEjeY();
+                if ((paredX == abajo) && (paredY == ejeY) && coordenadasPared.isEstado() == true) {
+                    colision = true;
+                }
+            }
+
+            if (colision == true) {
+                colision = false;
+            } else {
+
+                matriz[abajo][ejeY].removeAll();
+                matriz[abajo][ejeY].repaint();
+
+                JLabel imagen = new JLabel();
+                String nombre = "img/comecoco.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[abajo][ejeY].add(imagen);
+                matriz[abajo][ejeY].setBackground(Color.black);
+                //elimina todo la posicion actual donde esta el pacman
+                matriz[ejeX][ejeY].removeAll();
+                matriz[ejeX][ejeY].repaint();
+
+                Pacman.setEjeX(abajo);
+
+                derechaM = false;
+                izquierdaM = false;
+                arribaM = false;
+                abajoM = true;
+
+            }
+        }
     }
 
     /**
