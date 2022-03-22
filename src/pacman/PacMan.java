@@ -43,6 +43,9 @@ public class PacMan extends JFrame {
     boolean izquierdaM = false;
     boolean arribaM = false;
     boolean abajoM = false;
+    
+    //pruebas con los enemigos
+    Enemigo enemigo1;
 
     Timer timer = new Timer(200, new ActionListener() {
         @Override
