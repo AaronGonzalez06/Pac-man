@@ -30,9 +30,11 @@ public class PacMan extends JFrame {
     JPanel panel;
     JPanel[][] matriz = new JPanel[25][25];
     ArrayList monedas = new ArrayList();
+    ArrayList pared = new ArrayList();
     Personaje Pacman;
     JLabel puntuacion;
     int num = 0;
+    boolean colision = false;
 
     public PacMan() {
         ventana();
@@ -95,34 +97,49 @@ public class PacMan extends JFrame {
                 matriz[x][y] = new JPanel();
                 if (x == 0) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if (x == 24) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if (y == 0) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if (y == 24) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if ((x == 2 && y > 1 && y < 6) || (x == 2 && (y > 7 && y < 13)) || (x == 2 && (y > 14 && y < 21))) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if ((x == 4 && y > 1 && y < 4) || (x == 4 && (y > 5 && y < 10)) || (x == 4 && (y > 10 && y < 16)) || (x == 4 && (y > 16 && y < 22))) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if ((x == 6 && y > 1 && y < 15) || (x == 6 && (y > 15 && y < 23))) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if ((x == 8 && y > 1 && y < 9) || (x == 8 && (y > 9 && y < 23))) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if ((x == 10 && y > 1 && y < 9) || (x == 10 && (y > 9 && y < 18)) || (x == 10 && (y > 18 && y < 23))) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if ((x == 12 && (y > 1 && y < 5)) || (x == 12 && (y > 6 && y < 11)) || (x == 12 && (y > 12 && y < 22))) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if ((x == 14 && y > 1 && y < 16) || (x == 14 && (y > 16 && y < 23))) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if ((y == 2 && x > 15 && x < 23) || (y == 22 && x > 15 && x < 23) || (y == 6 && x > 19 && x < 23) || (y == 18 && x > 19 && x < 23) || (y == 4 && x > 17 && x < 23) || (y == 20 && x > 17 && x < 23)) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if (x == 16 && y > 3 && y < 21) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if (x == 18 && y > 4 && y < 20) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if (x == 21 && y > 7 && y < 17) {
                     matriz[x][y].setBackground(Color.blue);
+                    pared.add(new Estado(true, x, y));
                 } else if (x == 17 && y == 12) {
                     JLabel imagen = new JLabel();
                     String nombre = "img/comecoco.png";
@@ -180,61 +197,68 @@ public class PacMan extends JFrame {
                     int ejeY = Pacman.getEjeY();
                     int derecha = Pacman.getEjeY() + 1;
 
-                    for (int x = 0; x < monedas.size(); x++) {                        
+                    for (int x = 0; x < monedas.size(); x++) {
                         Moneda coordenadasMoneda = (Moneda) monedas.get(x);
                         int monedaX = coordenadasMoneda.getEjeX();
                         int monedaY = coordenadasMoneda.getEjeY();
-                        
-                        if((monedaX ==ejeX) && (monedaY == derecha) && coordenadasMoneda.isEstado() == true){
-                        System.out.println("yes");
-                        puntuacion.setText("Puntuación: " + num++);
-                        coordenadasMoneda.setEstado(false);
-                        }                                                                        
+
+                        if ((monedaX == ejeX) && (monedaY == derecha) && coordenadasMoneda.isEstado() == true) {
+                            System.out.println("yes");
+                            puntuacion.setText("Puntuación: " + num++);
+                            coordenadasMoneda.setEstado(false);
+                        }
                     }
 
-                    
-                    //reseteamos panel derecho
-                    matriz[ejeX][derecha].removeAll();
-                    matriz[ejeX][derecha].repaint();
+                    for (int x = 0; x < pared.size(); x++) {
+                        Estado coordenadasPared = (Estado) pared.get(x);
+                        int paredX = coordenadasPared.getEjeX();
+                        int paredY = coordenadasPared.getEjeY();
+                        if ((paredX == ejeX) && (paredY == derecha) && coordenadasPared.isEstado() == true) {
+                            colision = true;
+                        }
+                    }
 
-                    /*
-                    pruebas
-                     */
-                    System.out.println(matriz[ejeX][derecha]);
+                    if (colision == true) {
+                        colision = false;
+                    } else {
 
-                    JLabel imagen = new JLabel();
-                    String nombre = "img/comecoco.png";
-                    ImageIcon imageicon = new ImageIcon(nombre);
-                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
-                    imagen.setIcon(icon);
-                    imagen.setBounds(0, 0, 22, 22);
-                    matriz[ejeX][derecha].add(imagen);
-                    matriz[ejeX][derecha].setBackground(Color.black);
-                    //elimina todo la posicion actual donde esta el pacman
-                    matriz[ejeX][ejeY].removeAll();
-                    matriz[ejeX][ejeY].repaint();
+                        //reseteamos panel derecho
+                        matriz[ejeX][derecha].removeAll();
+                        matriz[ejeX][derecha].repaint();
+                        JLabel imagen = new JLabel();
+                        String nombre = "img/comecoco.png";
+                        ImageIcon imageicon = new ImageIcon(nombre);
+                        Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                        imagen.setIcon(icon);
+                        imagen.setBounds(0, 0, 22, 22);
+                        matriz[ejeX][derecha].add(imagen);
+                        matriz[ejeX][derecha].setBackground(Color.black);
+                        //elimina todo la posicion actual donde esta el pacman
+                        matriz[ejeX][ejeY].removeAll();
+                        matriz[ejeX][ejeY].repaint();
 
-                    Pacman.setEjeY(derecha);
+                        Pacman.setEjeY(derecha);
+
+                    }
 
                 } else if (e.getKeyChar() == 'a') {
                     //izquierda
                     int ejeX = Pacman.getEjeX();
                     int ejeY = Pacman.getEjeY();
                     int izquierda = Pacman.getEjeY() - 1;
-                    
-                    for (int x = 0; x < monedas.size(); x++) {                        
+
+                    for (int x = 0; x < monedas.size(); x++) {
                         Moneda coordenadasMoneda = (Moneda) monedas.get(x);
                         int monedaX = coordenadasMoneda.getEjeX();
                         int monedaY = coordenadasMoneda.getEjeY();
-                        
-                        if((monedaX ==ejeX) && (monedaY == izquierda) && coordenadasMoneda.isEstado() == true){
-                        System.out.println("yes");
-                        puntuacion.setText("Puntuación: " + num++);
-                        coordenadasMoneda.setEstado(false);
-                        }                                                                        
+
+                        if ((monedaX == ejeX) && (monedaY == izquierda) && coordenadasMoneda.isEstado() == true) {
+                            System.out.println("yes");
+                            puntuacion.setText("Puntuación: " + num++);
+                            coordenadasMoneda.setEstado(false);
+                        }
                     }
-                    
-                    
+
                     //reseteamos panel derecho
                     matriz[ejeX][izquierda].removeAll();
                     matriz[ejeX][izquierda].repaint();
@@ -260,18 +284,18 @@ public class PacMan extends JFrame {
                     int ejeY = Pacman.getEjeY();
                     int arriba = Pacman.getEjeX() - 1;
                     //reseteamos panel derecho
-                    for (int x = 0; x < monedas.size(); x++) {                        
+                    for (int x = 0; x < monedas.size(); x++) {
                         Moneda coordenadasMoneda = (Moneda) monedas.get(x);
                         int monedaX = coordenadasMoneda.getEjeX();
                         int monedaY = coordenadasMoneda.getEjeY();
-                        
-                        if((monedaX == arriba) && (monedaY == ejeY ) && coordenadasMoneda.isEstado() == true){
-                        System.out.println("yes");
-                        puntuacion.setText("Puntuación: " + num++);
-                        coordenadasMoneda.setEstado(false);
-                        }                                                                        
+
+                        if ((monedaX == arriba) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
+                            System.out.println("yes");
+                            puntuacion.setText("Puntuación: " + num++);
+                            coordenadasMoneda.setEstado(false);
+                        }
                     }
-                    
+
                     matriz[arriba][ejeY].removeAll();
                     matriz[arriba][ejeY].repaint();
 
@@ -296,19 +320,18 @@ public class PacMan extends JFrame {
                     int ejeY = Pacman.getEjeY();
                     int abajo = Pacman.getEjeX() + 1;
                     //reseteamos panel derecho
-                    for (int x = 0; x < monedas.size(); x++) {                        
+                    for (int x = 0; x < monedas.size(); x++) {
                         Moneda coordenadasMoneda = (Moneda) monedas.get(x);
                         int monedaX = coordenadasMoneda.getEjeX();
                         int monedaY = coordenadasMoneda.getEjeY();
-                        
-                        if((monedaX == abajo) && (monedaY == ejeY ) && coordenadasMoneda.isEstado() == true){
-                        System.out.println("yes");
-                        puntuacion.setText("Puntuación: " + num++);
-                        coordenadasMoneda.setEstado(false);
-                        }                                                                        
+
+                        if ((monedaX == abajo) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
+                            System.out.println("yes");
+                            puntuacion.setText("Puntuación: " + num++);
+                            coordenadasMoneda.setEstado(false);
+                        }
                     }
-                    
-                    
+
                     matriz[abajo][ejeY].removeAll();
                     matriz[abajo][ejeY].repaint();
 
