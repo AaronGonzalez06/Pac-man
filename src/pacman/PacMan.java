@@ -46,12 +46,14 @@ public class PacMan extends JFrame {
 
     //pruebas con los enemigos
     Enemigo enemigo1;
+    int movimientoEnemigo1 = 0;
 
     Timer timer = new Timer(200, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             ganar();
             seguirMovimientos();
+            enemigo1();
         }
     });
 
@@ -129,7 +131,7 @@ public class PacMan extends JFrame {
                     matriz[x][y].setBackground(Color.blue);
                     pared.add(new Estado(true, x, y));
                 } else if (x == 1 && y == 12) {
-                    
+
                     JLabel imagen = new JLabel();
                     String nombre = "img/enemigos/enemigo1.png";
                     ImageIcon imageicon = new ImageIcon(nombre);
@@ -141,7 +143,7 @@ public class PacMan extends JFrame {
 
                     //creamos el objeto Enemigo1
                     enemigo1 = new Enemigo(x, y);
-                    
+
                     //añadimos tambien la moneda
                     monedas.add(new Moneda(x, y, true));
 
@@ -684,6 +686,79 @@ public class PacMan extends JFrame {
 
             }
         }
+    }
+
+    public void enemigo1() {
+        /*        
+        1 --> derecha
+        2 --> izquierda
+        3 --> arriba
+        4 --> abajo
+         */
+        //movimientoEnemigo1 = (int) Math.floor(Math.random()*4+1);
+        //System.out.println(movimientoEnemigo1);
+
+        if (movimientoEnemigo1 == 0) {
+            int ejeX = enemigo1.getEjeX();
+            int ejeY = enemigo1.getEjeY();
+            int derecha = enemigo1.getEjeY() + 1;
+            int izquierda = enemigo1.getEjeY() - 1;
+
+            for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if ((monedaX == ejeX) && (monedaY == izquierda) && coordenadasMoneda.isEstado() == true) {
+                    
+                    matriz[ejeX][izquierda].removeAll();
+                    matriz[ejeX][izquierda].repaint();
+
+                    JLabel imagen = new JLabel();
+                    String nombre = "img/moneda.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);
+                    matriz[ejeX][izquierda].add(imagen);
+                    matriz[ejeX][izquierda].setBackground(Color.black);
+
+                }
+            }
+
+            for (int x = 0; x < pared.size(); x++) {
+                Estado coordenadasPared = (Estado) pared.get(x);
+                int paredX = coordenadasPared.getEjeX();
+                int paredY = coordenadasPared.getEjeY();
+                if ((paredX == ejeX) && (paredY == derecha) && coordenadasPared.isEstado() == true) {
+                    colision = true;
+                }
+            }
+
+            if (colision == true) {
+                colision = false;
+            } else {
+
+                //reseteamos panel derecho
+                matriz[ejeX][derecha].removeAll();
+                matriz[ejeX][derecha].repaint();
+                JLabel imagen = new JLabel();
+                String nombre = "img/enemigos/enemigo1.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[ejeX][derecha].add(imagen);
+                matriz[ejeX][derecha].setBackground(Color.black);
+                //elimina todo la posicion actual donde esta el pacman
+                matriz[ejeX][ejeY].removeAll();
+                matriz[ejeX][ejeY].repaint();
+                enemigo1.setEjeY(derecha);
+
+            }
+
+        }
+
     }
 
     /**
