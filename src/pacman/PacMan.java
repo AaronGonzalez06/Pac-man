@@ -737,6 +737,7 @@ public class PacMan extends JFrame {
 
             if (colision == true) {
                 colision = false;
+                movimientoEnemigo1 = 1;
             } else {
 
                 //reseteamos panel derecho
@@ -797,6 +798,7 @@ public class PacMan extends JFrame {
 
             if (colision == true) {
                 colision = false;
+                movimientoEnemigo1 = 0;
             } else {
 
                 //reseteamos panel derecho
