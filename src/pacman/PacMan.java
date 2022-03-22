@@ -43,7 +43,7 @@ public class PacMan extends JFrame {
     boolean izquierdaM = false;
     boolean arribaM = false;
     boolean abajoM = false;
-    
+
     //pruebas con los enemigos
     Enemigo enemigo1;
 
@@ -128,6 +128,23 @@ public class PacMan extends JFrame {
                 } else if (y == 24) {
                     matriz[x][y].setBackground(Color.blue);
                     pared.add(new Estado(true, x, y));
+                } else if (x == 1 && y == 12) {
+                    
+                    JLabel imagen = new JLabel();
+                    String nombre = "img/enemigos/enemigo1.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);
+                    matriz[x][y].add(imagen);
+                    matriz[x][y].setBackground(Color.black);
+
+                    //creamos el objeto Enemigo1
+                    enemigo1 = new Enemigo(x, y);
+                    
+                    //añadimos tambien la moneda
+                    monedas.add(new Moneda(x, y, true));
+
                 } else if ((x == 2 && y > 1 && y < 6) || (x == 2 && (y > 7 && y < 13)) || (x == 2 && (y > 14 && y < 21))) {
                     matriz[x][y].setBackground(Color.blue);
                     pared.add(new Estado(true, x, y));
