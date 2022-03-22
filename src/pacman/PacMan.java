@@ -31,6 +31,8 @@ public class PacMan extends JFrame {
     JPanel[][] matriz = new JPanel[25][25];
     ArrayList monedas = new ArrayList();
     Personaje Pacman;
+    JLabel puntuacion;
+    int num = 0;
 
     public PacMan() {
         ventana();
@@ -55,17 +57,23 @@ public class PacMan extends JFrame {
 
     public void titulo() {
         JLabel titulo = new JLabel();
+        puntuacion = new JLabel();
         titulo.setText("PACMAN");
+        puntuacion.setText("Puntuación: " + num);
         titulo.setBounds(300, 50, 400, 75);
+        puntuacion.setBounds(800, 100, 150, 75);
         titulo.setForeground(Color.YELLOW);
+        puntuacion.setForeground(Color.YELLOW);
         File fuente = new File("fuente/fuente.ttf");
         try {
             //crea la fuente
             Font font = Font.createFont(Font.TRUETYPE_FONT, fuente);
             //dar tanaño fuente
             Font sizedFont = font.deriveFont(75f);
+            Font sizedPuntuacion = font.deriveFont(12f);
             titulo.setFont(sizedFont);
-            titulo.setFont(sizedFont);
+            puntuacion.setFont(sizedPuntuacion);
+            //titulo.setFont(sizedFont);
         } catch (FontFormatException ex) {
             System.err.println("error en font format");
         } catch (IOException ex) {
@@ -73,6 +81,7 @@ public class PacMan extends JFrame {
         }
 
         this.add(titulo);
+        this.add(puntuacion);
     }
 
     public void panel() {
@@ -166,10 +175,24 @@ public class PacMan extends JFrame {
 
                 if (e.getKeyChar() == 'd') {
                     //derecha
-                    //ejespacman                    
+                    //ejespacman   
                     int ejeX = Pacman.getEjeX();
                     int ejeY = Pacman.getEjeY();
                     int derecha = Pacman.getEjeY() + 1;
+
+                    for (int x = 0; x < monedas.size(); x++) {                        
+                        Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                        int monedaX = coordenadasMoneda.getEjeX();
+                        int monedaY = coordenadasMoneda.getEjeY();
+                        
+                        if((monedaX ==ejeX) && (monedaY == derecha) && coordenadasMoneda.isEstado() == true){
+                        System.out.println("yes");
+                        puntuacion.setText("Puntuación: " + num++);
+                        coordenadasMoneda.setEstado(false);
+                        }                                                                        
+                    }
+
+                    
                     //reseteamos panel derecho
                     matriz[ejeX][derecha].removeAll();
                     matriz[ejeX][derecha].repaint();
@@ -198,6 +221,20 @@ public class PacMan extends JFrame {
                     int ejeX = Pacman.getEjeX();
                     int ejeY = Pacman.getEjeY();
                     int izquierda = Pacman.getEjeY() - 1;
+                    
+                    for (int x = 0; x < monedas.size(); x++) {                        
+                        Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                        int monedaX = coordenadasMoneda.getEjeX();
+                        int monedaY = coordenadasMoneda.getEjeY();
+                        
+                        if((monedaX ==ejeX) && (monedaY == izquierda) && coordenadasMoneda.isEstado() == true){
+                        System.out.println("yes");
+                        puntuacion.setText("Puntuación: " + num++);
+                        coordenadasMoneda.setEstado(false);
+                        }                                                                        
+                    }
+                    
+                    
                     //reseteamos panel derecho
                     matriz[ejeX][izquierda].removeAll();
                     matriz[ejeX][izquierda].repaint();
@@ -223,6 +260,18 @@ public class PacMan extends JFrame {
                     int ejeY = Pacman.getEjeY();
                     int arriba = Pacman.getEjeX() - 1;
                     //reseteamos panel derecho
+                    for (int x = 0; x < monedas.size(); x++) {                        
+                        Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                        int monedaX = coordenadasMoneda.getEjeX();
+                        int monedaY = coordenadasMoneda.getEjeY();
+                        
+                        if((monedaX == arriba) && (monedaY == ejeY ) && coordenadasMoneda.isEstado() == true){
+                        System.out.println("yes");
+                        puntuacion.setText("Puntuación: " + num++);
+                        coordenadasMoneda.setEstado(false);
+                        }                                                                        
+                    }
+                    
                     matriz[arriba][ejeY].removeAll();
                     matriz[arriba][ejeY].repaint();
 
@@ -247,6 +296,19 @@ public class PacMan extends JFrame {
                     int ejeY = Pacman.getEjeY();
                     int abajo = Pacman.getEjeX() + 1;
                     //reseteamos panel derecho
+                    for (int x = 0; x < monedas.size(); x++) {                        
+                        Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                        int monedaX = coordenadasMoneda.getEjeX();
+                        int monedaY = coordenadasMoneda.getEjeY();
+                        
+                        if((monedaX == abajo) && (monedaY == ejeY ) && coordenadasMoneda.isEstado() == true){
+                        System.out.println("yes");
+                        puntuacion.setText("Puntuación: " + num++);
+                        coordenadasMoneda.setEstado(false);
+                        }                                                                        
+                    }
+                    
+                    
                     matriz[abajo][ejeY].removeAll();
                     matriz[abajo][ejeY].repaint();
 
