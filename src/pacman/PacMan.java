@@ -47,6 +47,7 @@ public class PacMan extends JFrame {
     //pruebas con los enemigos
     Enemigo enemigo1;
     int movimientoEnemigo1 = 1;
+    int cambiarMovimiento1 = 0;
 
     Timer timer = new Timer(200, new ActionListener() {
         @Override
@@ -737,7 +738,7 @@ public class PacMan extends JFrame {
 
             if (colision == true) {
                 colision = false;
-                movimientoEnemigo1 = 1;
+                //movimientoEnemigo1 = 1;
             } else {
 
                 //reseteamos panel derecho
@@ -799,6 +800,8 @@ public class PacMan extends JFrame {
             if (colision == true) {
                 colision = false;
                 movimientoEnemigo1 = 0;
+            } else if (cambiarMovimiento1 == 5) {
+                colision = false;
             } else {
 
                 //reseteamos panel derecho
@@ -816,6 +819,9 @@ public class PacMan extends JFrame {
                 matriz[ejeX][ejeY].removeAll();
                 matriz[ejeX][ejeY].repaint();
                 enemigo1.setEjeY(izquierda);
+
+                //pruebas 
+                cambiarMovimiento1++;
 
             }
 
