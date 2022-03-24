@@ -46,7 +46,7 @@ public class PacMan extends JFrame {
 
     //pruebas con los enemigos
     Enemigo enemigo1;
-    int movimientoEnemigo1 = 1;
+    int movimientoEnemigo1 = 2;
     int cambiarMovimiento1 = 0;
 
     Timer timer = new Timer(200, new ActionListener() {
@@ -699,7 +699,7 @@ public class PacMan extends JFrame {
         //movimientoEnemigo1 = (int) Math.floor(Math.random()*4+1);
         //System.out.println(movimientoEnemigo1);
 
-        if (movimientoEnemigo1 == 0) {
+        if (movimientoEnemigo1 == 1) {
             int ejeX = enemigo1.getEjeX();
             int ejeY = enemigo1.getEjeY();
             int derecha = enemigo1.getEjeY() + 1;
@@ -759,7 +759,7 @@ public class PacMan extends JFrame {
 
             }
 
-        } else if (movimientoEnemigo1 == 1) {
+        } else if (movimientoEnemigo1 == 2) {
 
             int ejeX = enemigo1.getEjeX();
             int ejeY = enemigo1.getEjeY();
@@ -802,6 +802,11 @@ public class PacMan extends JFrame {
                 movimientoEnemigo1 = 0;
             } else if (cambiarMovimiento1 == 5) {
                 colision = false;
+                do {
+                    movimientoEnemigo1 = (int) Math.floor(Math.random() * 4 + 1);
+                    System.out.println("cambio movimiento:" + movimientoEnemigo1);
+                } while (movimientoEnemigo1 == 2 || movimientoEnemigo1 == 1 || movimientoEnemigo1 == 3);
+                cambiarMovimiento1 = 0;
             } else {
 
                 //reseteamos panel derecho
@@ -825,6 +830,77 @@ public class PacMan extends JFrame {
 
             }
 
+        } else if (movimientoEnemigo1 == 3) {
+            
+        } else if (movimientoEnemigo1 == 4) {
+            
+            int ejeX = enemigo1.getEjeX();
+            int ejeY = enemigo1.getEjeY();
+            int arriba = enemigo1.getEjeX() - 1;
+            int abajo = enemigo1.getEjeX() + 1;
+
+            for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if ((monedaX == arriba) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+
+                    matriz[arriba][ejeY].removeAll();
+                    matriz[arriba][ejeY].repaint();
+
+                    JLabel imagen = new JLabel();
+                    String nombre = "img/moneda.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);
+                    matriz[arriba][ejeY].add(imagen);
+                    matriz[arriba][ejeY].setBackground(Color.black);
+
+                }
+            }
+
+            for (int x = 0; x < pared.size(); x++) {
+                Estado coordenadasPared = (Estado) pared.get(x);
+                int paredX = coordenadasPared.getEjeX();
+                int paredY = coordenadasPared.getEjeY();
+                if ((paredX == abajo) && (paredY == ejeY) && coordenadasPared.isEstado() == true) {
+                    colision = true;
+                }
+            }
+
+            if (colision == true) {
+                colision = false;
+                movimientoEnemigo1 = 0;
+            } else if (cambiarMovimiento1 == 5) {
+                colision = false;
+                do {
+                    movimientoEnemigo1 = (int) Math.floor(Math.random() * 4 + 1);
+                    System.out.println(movimientoEnemigo1);
+                } while (movimientoEnemigo1 == 4);
+                cambiarMovimiento1 = 0;
+            } else {                
+                matriz[abajo][ejeY].removeAll();
+                matriz[abajo][ejeY].repaint();
+                JLabel imagen = new JLabel();
+                String nombre = "img/enemigos/enemigo1.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[abajo][ejeY].add(imagen);
+                matriz[abajo][ejeY].setBackground(Color.black);
+                //elimina todo la posicion actual donde esta el pacman
+                matriz[ejeX][ejeY].removeAll();
+                matriz[ejeX][ejeY].repaint();
+                enemigo1.setEjeX(abajo);
+
+                //pruebas 
+                cambiarMovimiento1++;
+
+            }
+            
         }
 
     }
