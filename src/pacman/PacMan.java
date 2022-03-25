@@ -57,6 +57,10 @@ public class PacMan extends JFrame {
     Enemigo enemigo3;
     int movimientoEnemigo3 = 1;
     int cambiarMovimiento3 = 0;
+    //enemigo4
+    Enemigo enemigo4;
+    int movimientoEnemigo4 = 3;
+    int cambiarMovimiento4 = 0;
 
     Timer timer = new Timer(200, new ActionListener() {
         @Override
@@ -66,6 +70,7 @@ public class PacMan extends JFrame {
             enemigo1();
             enemigo2();
             enemigo3();
+            enemigo4();
         }
     });
 
@@ -193,7 +198,24 @@ public class PacMan extends JFrame {
                     //añadimos tambien la moneda
                     monedas.add(new Moneda(x, y, true));
 
-                }    else if ((x == 2 && y > 1 && y < 6) || (x == 2 && (y > 7 && y < 13)) || (x == 2 && (y > 14 && y < 21))) {
+                } else if (x == 15 && y == 23) {
+
+                    JLabel imagen = new JLabel();
+                    String nombre = "img/enemigos/enemigo3.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);
+                    matriz[x][y].add(imagen);
+                    matriz[x][y].setBackground(Color.black);
+
+                    //creamos el objeto Enemigo1
+                    enemigo4 = new Enemigo(x, y);
+
+                    //añadimos tambien la moneda
+                    monedas.add(new Moneda(x, y, true));
+
+                } else if ((x == 2 && y > 1 && y < 6) || (x == 2 && (y > 7 && y < 13)) || (x == 2 && (y > 14 && y < 21))) {
                     matriz[x][y].setBackground(Color.blue);
                     pared.add(new Estado(true, x, y));
                 } else if ((x == 4 && y > 1 && y < 4) || (x == 4 && (y > 5 && y < 10)) || (x == 4 && (y > 10 && y < 16)) || (x == 4 && (y > 16 && y < 22))) {
@@ -1639,6 +1661,310 @@ public class PacMan extends JFrame {
 
                 //pruebas 
                 cambiarMovimiento3++;
+
+            }
+            
+        }
+
+    
+    }
+    
+    public void enemigo4(){
+        
+        if (movimientoEnemigo4 == 1) {
+            int ejeX = enemigo4.getEjeX();
+            int ejeY = enemigo4.getEjeY();
+            int derecha = enemigo4.getEjeY() + 1;
+            int izquierda = enemigo4.getEjeY() - 1;
+
+            for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if ((monedaX == ejeX) && (monedaY == izquierda) && coordenadasMoneda.isEstado() == true) {
+
+                    matriz[ejeX][izquierda].removeAll();
+                    matriz[ejeX][izquierda].repaint();
+
+                    JLabel imagen = new JLabel();
+                    String nombre = "img/moneda.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);
+                    matriz[ejeX][izquierda].add(imagen);
+                    matriz[ejeX][izquierda].setBackground(Color.black);
+
+                }
+            }
+
+            for (int x = 0; x < pared.size(); x++) {
+                Estado coordenadasPared = (Estado) pared.get(x);
+                int paredX = coordenadasPared.getEjeX();
+                int paredY = coordenadasPared.getEjeY();
+                if ((paredX == ejeX) && (paredY == derecha) && coordenadasPared.isEstado() == true) {
+                    colision = true;
+                }
+            }
+
+            if (colision == true) {                
+                colision = false;
+                do {
+                    movimientoEnemigo4 = (int) Math.floor(Math.random() * 4 + 1);
+                    System.out.println("cambio movimiento:" + movimientoEnemigo1);
+                } while (movimientoEnemigo4 == 1);
+                cambiarMovimiento4 = 0;
+                                               
+            } else if (cambiarMovimiento4 == 5) {
+                colision = false;
+                do {
+                    movimientoEnemigo4 = (int) Math.floor(Math.random() * 4 + 1);
+                    System.out.println("cambio movimiento:" + movimientoEnemigo1);
+                } while (movimientoEnemigo4 == 1);
+                cambiarMovimiento1 = 0;
+            }  else {
+
+                //reseteamos panel derecho
+                matriz[ejeX][derecha].removeAll();
+                matriz[ejeX][derecha].repaint();
+                JLabel imagen = new JLabel();
+                String nombre = "img/enemigos/enemigo3.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[ejeX][derecha].add(imagen);
+                matriz[ejeX][derecha].setBackground(Color.black);
+                //elimina todo la posicion actual donde esta el pacman
+                matriz[ejeX][ejeY].removeAll();
+                matriz[ejeX][ejeY].repaint();
+                enemigo4.setEjeY(derecha);
+                cambiarMovimiento4++;
+            }
+
+        } else if (movimientoEnemigo4 == 2) {
+
+            int ejeX = enemigo4.getEjeX();
+            int ejeY = enemigo4.getEjeY();
+            int derecha = enemigo4.getEjeY() + 1;
+            int izquierda = enemigo4.getEjeY() - 1;
+
+            for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if ((monedaX == ejeX) && (monedaY == derecha) && coordenadasMoneda.isEstado() == true) {
+
+                    matriz[ejeX][derecha].removeAll();
+                    matriz[ejeX][derecha].repaint();
+
+                    JLabel imagen = new JLabel();
+                    String nombre = "img/moneda.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);
+                    matriz[ejeX][derecha].add(imagen);
+                    matriz[ejeX][derecha].setBackground(Color.black);
+
+                }
+            }
+
+            for (int x = 0; x < pared.size(); x++) {
+                Estado coordenadasPared = (Estado) pared.get(x);
+                int paredX = coordenadasPared.getEjeX();
+                int paredY = coordenadasPared.getEjeY();
+                if ((paredX == ejeX) && (paredY == izquierda) && coordenadasPared.isEstado() == true) {
+                    colision = true;
+                }
+            }
+
+            if (colision == true) {
+                colision = false;
+                do {
+                    movimientoEnemigo4 = (int) Math.floor(Math.random() * 4 + 1);
+                    System.out.println("cambio movimiento:" + movimientoEnemigo1);
+                } while (movimientoEnemigo4 == 2);
+                cambiarMovimiento4 = 0;
+                  
+            } else if (cambiarMovimiento4 == 5) {
+                colision = false;
+                do {
+                    movimientoEnemigo4 = (int) Math.floor(Math.random() * 4 + 1);
+                    System.out.println("cambio movimiento:" + movimientoEnemigo1);
+                } while (movimientoEnemigo4 == 2);
+                cambiarMovimiento1 = 0;
+            } else {
+
+                //reseteamos panel derecho
+                matriz[ejeX][izquierda].removeAll();
+                matriz[ejeX][izquierda].repaint();
+                JLabel imagen = new JLabel();
+                String nombre = "img/enemigos/enemigo3.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[ejeX][izquierda].add(imagen);
+                matriz[ejeX][izquierda].setBackground(Color.black);
+                //elimina todo la posicion actual donde esta el pacman
+                matriz[ejeX][ejeY].removeAll();
+                matriz[ejeX][ejeY].repaint();
+                enemigo4.setEjeY(izquierda);
+
+                //pruebas 
+                cambiarMovimiento4++;
+
+            }
+
+        } else if (movimientoEnemigo4 == 3) {
+            
+            int ejeX = enemigo4.getEjeX();
+            int ejeY = enemigo4.getEjeY();
+            int arriba = enemigo4.getEjeX() - 1;
+            int abajo = enemigo4.getEjeX() + 1;
+
+            for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if ((monedaX == abajo) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+
+                    matriz[abajo][ejeY].removeAll();
+                    matriz[abajo][ejeY].repaint();
+
+                    JLabel imagen = new JLabel();
+                    String nombre = "img/moneda.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);
+                    matriz[abajo][ejeY].add(imagen);
+                    matriz[abajo][ejeY].setBackground(Color.black);
+
+                }
+            }
+
+            for (int x = 0; x < pared.size(); x++) {
+                Estado coordenadasPared = (Estado) pared.get(x);
+                int paredX = coordenadasPared.getEjeX();
+                int paredY = coordenadasPared.getEjeY();
+                if ((paredX == arriba) && (paredY == ejeY) && coordenadasPared.isEstado() == true) {
+                    colision = true;
+                }
+            }
+
+            if (colision == true) {
+                colision = false;
+                do {
+                    movimientoEnemigo4 = (int) Math.floor(Math.random() * 4 + 1);
+                    System.out.println("cambio movimiento:" + movimientoEnemigo1);
+                } while (movimientoEnemigo4 == 3);
+                cambiarMovimiento4 = 0;
+                  
+            } else if (cambiarMovimiento4 == 5) {
+                colision = false;
+                do {
+                    movimientoEnemigo4 = (int) Math.floor(Math.random() * 4 + 1);
+                    System.out.println(movimientoEnemigo1);
+                } while (movimientoEnemigo4 == 3);
+                cambiarMovimiento4 = 0;
+            } else {                
+                matriz[arriba][ejeY].removeAll();
+                matriz[arriba][ejeY].repaint();
+                JLabel imagen = new JLabel();
+                String nombre = "img/enemigos/enemigo3.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[arriba][ejeY].add(imagen);
+                matriz[arriba][ejeY].setBackground(Color.black);
+                //elimina todo la posicion actual donde esta el pacman
+                matriz[ejeX][ejeY].removeAll();
+                matriz[ejeX][ejeY].repaint();
+                enemigo4.setEjeX(arriba);
+
+                //pruebas 
+                cambiarMovimiento4++;
+
+            }
+            
+            
+        } else if (movimientoEnemigo4 == 4) {
+            
+            int ejeX = enemigo4.getEjeX();
+            int ejeY = enemigo4.getEjeY();
+            int arriba = enemigo4.getEjeX() - 1;
+            int abajo = enemigo4.getEjeX() + 1;
+
+            for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if ((monedaX == arriba) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+
+                    matriz[arriba][ejeY].removeAll();
+                    matriz[arriba][ejeY].repaint();
+
+                    JLabel imagen = new JLabel();
+                    String nombre = "img/moneda.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);
+                    matriz[arriba][ejeY].add(imagen);
+                    matriz[arriba][ejeY].setBackground(Color.black);
+
+                }
+            }
+
+            for (int x = 0; x < pared.size(); x++) {
+                Estado coordenadasPared = (Estado) pared.get(x);
+                int paredX = coordenadasPared.getEjeX();
+                int paredY = coordenadasPared.getEjeY();
+                if ((paredX == abajo) && (paredY == ejeY) && coordenadasPared.isEstado() == true) {
+                    colision = true;
+                }
+            }
+
+            if (colision == true) {
+                colision = false;
+                do {
+                    movimientoEnemigo4 = (int) Math.floor(Math.random() * 4 + 1);
+                    System.out.println("cambio movimiento:" + movimientoEnemigo1);
+                } while (movimientoEnemigo4 == 4);
+                cambiarMovimiento4 = 0;
+                  
+            } else if (cambiarMovimiento4 == 5) {
+                colision = false;
+                do {
+                    movimientoEnemigo4 = (int) Math.floor(Math.random() * 4 + 1);
+                    System.out.println(movimientoEnemigo1);
+                } while (movimientoEnemigo4 == 4);
+                cambiarMovimiento4 = 0;
+            } else {                
+                matriz[abajo][ejeY].removeAll();
+                matriz[abajo][ejeY].repaint();
+                JLabel imagen = new JLabel();
+                String nombre = "img/enemigos/enemigo3.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[abajo][ejeY].add(imagen);
+                matriz[abajo][ejeY].setBackground(Color.black);
+                //elimina todo la posicion actual donde esta el pacman
+                matriz[ejeX][ejeY].removeAll();
+                matriz[ejeX][ejeY].repaint();
+                enemigo4.setEjeX(abajo);
+
+                //pruebas 
+                cambiarMovimiento4++;
 
             }
             
