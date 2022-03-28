@@ -62,6 +62,10 @@ public class PacMan extends JFrame {
     int movimientoEnemigo4 = 3;
     int cambiarMovimiento4 = 0;
 
+    //vidas
+    JPanel vidas;
+    JLabel vida1, vida2, vida3;
+
     Timer timer = new Timer(200, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -78,6 +82,7 @@ public class PacMan extends JFrame {
     public PacMan() {
         ventana();
         titulo();
+        vidas();
         panel();
         logica();
         timer.start();
@@ -125,6 +130,21 @@ public class PacMan extends JFrame {
 
         this.add(titulo);
         this.add(puntuacion);
+    }
+
+    public void vidas() {
+        vidas = new JPanel();
+        vidas.setBounds(50, 100, 150, 75);
+        vidas.setForeground(Color.black);
+        this.add(vidas);
+        vida1 = new JLabel();
+        //añadimos la imagen
+        vida1.setBounds(0, 0, 50, 50);
+        vidas.add(vida1);
+        String ruta = "img/vida/vida.png";
+        ImageIcon imageiconvida1 = new ImageIcon(ruta);
+        Icon iconfondovida1 = new ImageIcon(imageiconvida1.getImage().getScaledInstance(30, 30, Image.SCALE_AREA_AVERAGING));
+        vida1.setIcon(iconfondovida1);
     }
 
     public void panel() {
@@ -1973,9 +1993,9 @@ public class PacMan extends JFrame {
             JOptionPane.showMessageDialog(null, "game Over");
         } else if ((Pacman.getEjeX() == enemigo2.getEjeX()) && (Pacman.getEjeY() == enemigo2.getEjeY())) {
             JOptionPane.showMessageDialog(null, "game Over");
-        } else if((Pacman.getEjeX() == enemigo3.getEjeX()) && (Pacman.getEjeY() == enemigo3.getEjeY())){        
+        } else if ((Pacman.getEjeX() == enemigo3.getEjeX()) && (Pacman.getEjeY() == enemigo3.getEjeY())) {
             JOptionPane.showMessageDialog(null, "game Over");
-        } else if((Pacman.getEjeX() == enemigo4.getEjeX()) && (Pacman.getEjeY() == enemigo4.getEjeY())){        
+        } else if ((Pacman.getEjeX() == enemigo4.getEjeX()) && (Pacman.getEjeY() == enemigo4.getEjeY())) {
             JOptionPane.showMessageDialog(null, "game Over");
         }
 
