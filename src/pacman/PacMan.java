@@ -71,6 +71,7 @@ public class PacMan extends JFrame {
             enemigo2();
             enemigo3();
             enemigo4();
+            colisionConEnemigos();
         }
     });
 
@@ -201,7 +202,7 @@ public class PacMan extends JFrame {
                 } else if (x == 15 && y == 23) {
 
                     JLabel imagen = new JLabel();
-                    String nombre = "img/enemigos/enemigo3.png";
+                    String nombre = "img/enemigos/enemigo4.png";
                     ImageIcon imageicon = new ImageIcon(nombre);
                     Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                     imagen.setIcon(icon);
@@ -803,14 +804,14 @@ public class PacMan extends JFrame {
                 }
             }
 
-            if (colision == true) {                
+            if (colision == true) {
                 colision = false;
                 do {
                     movimientoEnemigo1 = (int) Math.floor(Math.random() * 4 + 1);
                     System.out.println("cambio movimiento:" + movimientoEnemigo1);
                 } while (movimientoEnemigo1 == 1);
                 cambiarMovimiento1 = 0;
-                                               
+
             } else if (cambiarMovimiento1 == 5) {
                 colision = false;
                 do {
@@ -818,7 +819,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo1);
                 } while (movimientoEnemigo1 == 1);
                 cambiarMovimiento1 = 0;
-            }  else {
+            } else {
 
                 //reseteamos panel derecho
                 matriz[ejeX][derecha].removeAll();
@@ -883,7 +884,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo1);
                 } while (movimientoEnemigo1 == 2);
                 cambiarMovimiento1 = 0;
-                  
+
             } else if (cambiarMovimiento1 == 5) {
                 colision = false;
                 do {
@@ -915,7 +916,7 @@ public class PacMan extends JFrame {
             }
 
         } else if (movimientoEnemigo1 == 3) {
-            
+
             int ejeX = enemigo1.getEjeX();
             int ejeY = enemigo1.getEjeY();
             int arriba = enemigo1.getEjeX() - 1;
@@ -926,7 +927,7 @@ public class PacMan extends JFrame {
                 int monedaX = coordenadasMoneda.getEjeX();
                 int monedaY = coordenadasMoneda.getEjeY();
 
-                if ((monedaX == abajo) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+                if ((monedaX == abajo) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
 
                     matriz[abajo][ejeY].removeAll();
                     matriz[abajo][ejeY].repaint();
@@ -959,7 +960,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo1);
                 } while (movimientoEnemigo1 == 3);
                 cambiarMovimiento1 = 0;
-                  
+
             } else if (cambiarMovimiento1 == 5) {
                 colision = false;
                 do {
@@ -967,7 +968,7 @@ public class PacMan extends JFrame {
                     System.out.println(movimientoEnemigo1);
                 } while (movimientoEnemigo1 == 3);
                 cambiarMovimiento1 = 0;
-            } else {                
+            } else {
                 matriz[arriba][ejeY].removeAll();
                 matriz[arriba][ejeY].repaint();
                 JLabel imagen = new JLabel();
@@ -987,10 +988,9 @@ public class PacMan extends JFrame {
                 cambiarMovimiento1++;
 
             }
-            
-            
+
         } else if (movimientoEnemigo1 == 4) {
-            
+
             int ejeX = enemigo1.getEjeX();
             int ejeY = enemigo1.getEjeY();
             int arriba = enemigo1.getEjeX() - 1;
@@ -1001,7 +1001,7 @@ public class PacMan extends JFrame {
                 int monedaX = coordenadasMoneda.getEjeX();
                 int monedaY = coordenadasMoneda.getEjeY();
 
-                if ((monedaX == arriba) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+                if ((monedaX == arriba) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
 
                     matriz[arriba][ejeY].removeAll();
                     matriz[arriba][ejeY].repaint();
@@ -1034,7 +1034,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo1);
                 } while (movimientoEnemigo1 == 4);
                 cambiarMovimiento1 = 0;
-                  
+
             } else if (cambiarMovimiento1 == 5) {
                 colision = false;
                 do {
@@ -1042,7 +1042,7 @@ public class PacMan extends JFrame {
                     System.out.println(movimientoEnemigo1);
                 } while (movimientoEnemigo1 == 4);
                 cambiarMovimiento1 = 0;
-            } else {                
+            } else {
                 matriz[abajo][ejeY].removeAll();
                 matriz[abajo][ejeY].repaint();
                 JLabel imagen = new JLabel();
@@ -1062,13 +1062,13 @@ public class PacMan extends JFrame {
                 cambiarMovimiento1++;
 
             }
-            
+
         }
 
     }
-    
-    public void enemigo2(){
-        
+
+    public void enemigo2() {
+
         if (movimientoEnemigo2 == 1) {
             int ejeX = enemigo2.getEjeX();
             int ejeY = enemigo2.getEjeY();
@@ -1106,14 +1106,14 @@ public class PacMan extends JFrame {
                 }
             }
 
-            if (colision == true) {                
+            if (colision == true) {
                 colision = false;
                 do {
                     movimientoEnemigo2 = (int) Math.floor(Math.random() * 4 + 1);
                     System.out.println("cambio movimiento:" + movimientoEnemigo2);
                 } while (movimientoEnemigo2 == 1);
                 cambiarMovimiento2 = 0;
-                                               
+
             } else if (cambiarMovimiento2 == 5) {
                 colision = false;
                 do {
@@ -1121,7 +1121,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo2);
                 } while (movimientoEnemigo2 == 1);
                 cambiarMovimiento2 = 0;
-            }  else {
+            } else {
 
                 //reseteamos panel derecho
                 matriz[ejeX][derecha].removeAll();
@@ -1186,7 +1186,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo2);
                 } while (movimientoEnemigo2 == 2);
                 cambiarMovimiento2 = 0;
-                  
+
             } else if (cambiarMovimiento2 == 5) {
                 colision = false;
                 do {
@@ -1218,7 +1218,7 @@ public class PacMan extends JFrame {
             }
 
         } else if (movimientoEnemigo2 == 3) {
-            
+
             int ejeX = enemigo2.getEjeX();
             int ejeY = enemigo2.getEjeY();
             int arriba = enemigo2.getEjeX() - 1;
@@ -1229,7 +1229,7 @@ public class PacMan extends JFrame {
                 int monedaX = coordenadasMoneda.getEjeX();
                 int monedaY = coordenadasMoneda.getEjeY();
 
-                if ((monedaX == abajo) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+                if ((monedaX == abajo) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
 
                     matriz[abajo][ejeY].removeAll();
                     matriz[abajo][ejeY].repaint();
@@ -1262,7 +1262,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo2);
                 } while (movimientoEnemigo2 == 3);
                 cambiarMovimiento2 = 0;
-                  
+
             } else if (cambiarMovimiento2 == 5) {
                 colision = false;
                 do {
@@ -1270,7 +1270,7 @@ public class PacMan extends JFrame {
                     System.out.println(movimientoEnemigo1);
                 } while (movimientoEnemigo2 == 3);
                 cambiarMovimiento2 = 0;
-            } else {                
+            } else {
                 matriz[arriba][ejeY].removeAll();
                 matriz[arriba][ejeY].repaint();
                 JLabel imagen = new JLabel();
@@ -1290,10 +1290,9 @@ public class PacMan extends JFrame {
                 cambiarMovimiento2++;
 
             }
-            
-            
+
         } else if (movimientoEnemigo2 == 4) {
-            
+
             int ejeX = enemigo2.getEjeX();
             int ejeY = enemigo2.getEjeY();
             int arriba = enemigo2.getEjeX() - 1;
@@ -1304,7 +1303,7 @@ public class PacMan extends JFrame {
                 int monedaX = coordenadasMoneda.getEjeX();
                 int monedaY = coordenadasMoneda.getEjeY();
 
-                if ((monedaX == arriba) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+                if ((monedaX == arriba) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
 
                     matriz[arriba][ejeY].removeAll();
                     matriz[arriba][ejeY].repaint();
@@ -1337,7 +1336,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo2);
                 } while (movimientoEnemigo2 == 4);
                 cambiarMovimiento2 = 0;
-                  
+
             } else if (cambiarMovimiento2 == 5) {
                 colision = false;
                 do {
@@ -1345,7 +1344,7 @@ public class PacMan extends JFrame {
                     System.out.println(movimientoEnemigo2);
                 } while (movimientoEnemigo2 == 4);
                 cambiarMovimiento2 = 0;
-            } else {                
+            } else {
                 matriz[abajo][ejeY].removeAll();
                 matriz[abajo][ejeY].repaint();
                 JLabel imagen = new JLabel();
@@ -1365,14 +1364,13 @@ public class PacMan extends JFrame {
                 cambiarMovimiento2++;
 
             }
-            
+
         }
 
-    
     }
 
-    public void enemigo3(){
-        
+    public void enemigo3() {
+
         if (movimientoEnemigo3 == 1) {
             int ejeX = enemigo3.getEjeX();
             int ejeY = enemigo3.getEjeY();
@@ -1410,21 +1408,21 @@ public class PacMan extends JFrame {
                 }
             }
 
-            if (colision == true) {                
+            if (colision == true) {
                 colision = false;
                 do {
                     movimientoEnemigo3 = (int) Math.floor(Math.random() * 4 + 1);
                     System.out.println("cambio movimiento:" + movimientoEnemigo3);
                 } while (movimientoEnemigo3 == 1);
                 cambiarMovimiento3 = 0;
-                                               
+
             } else if (cambiarMovimiento3 == 5) {
                 colision = false;
                 do {
-                    movimientoEnemigo3 = (int) Math.floor(Math.random() * 4 + 1);                    
+                    movimientoEnemigo3 = (int) Math.floor(Math.random() * 4 + 1);
                 } while (movimientoEnemigo3 == 1);
                 cambiarMovimiento3 = 0;
-            }  else {
+            } else {
 
                 //reseteamos panel derecho
                 matriz[ejeX][derecha].removeAll();
@@ -1488,11 +1486,11 @@ public class PacMan extends JFrame {
                     movimientoEnemigo3 = (int) Math.floor(Math.random() * 4 + 1);
                 } while (movimientoEnemigo3 == 3);
                 cambiarMovimiento3 = 0;
-                  
+
             } else if (cambiarMovimiento3 == 5) {
                 colision = false;
                 do {
-                    movimientoEnemigo3 = (int) Math.floor(Math.random() * 4 + 1);                    
+                    movimientoEnemigo3 = (int) Math.floor(Math.random() * 4 + 1);
                 } while (movimientoEnemigo3 == 2);
                 cambiarMovimiento2 = 0;
             } else {
@@ -1519,7 +1517,7 @@ public class PacMan extends JFrame {
             }
 
         } else if (movimientoEnemigo3 == 3) {
-            
+
             int ejeX = enemigo3.getEjeX();
             int ejeY = enemigo3.getEjeY();
             int arriba = enemigo3.getEjeX() - 1;
@@ -1530,7 +1528,7 @@ public class PacMan extends JFrame {
                 int monedaX = coordenadasMoneda.getEjeX();
                 int monedaY = coordenadasMoneda.getEjeY();
 
-                if ((monedaX == abajo) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+                if ((monedaX == abajo) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
 
                     matriz[abajo][ejeY].removeAll();
                     matriz[abajo][ejeY].repaint();
@@ -1563,14 +1561,14 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo2);
                 } while (movimientoEnemigo3 == 3);
                 cambiarMovimiento3 = 0;
-                  
+
             } else if (cambiarMovimiento3 == 5) {
                 colision = false;
                 do {
                     movimientoEnemigo3 = (int) Math.floor(Math.random() * 4 + 1);
                 } while (movimientoEnemigo3 == 3);
                 cambiarMovimiento3 = 0;
-            } else {                
+            } else {
                 matriz[arriba][ejeY].removeAll();
                 matriz[arriba][ejeY].repaint();
                 JLabel imagen = new JLabel();
@@ -1590,10 +1588,9 @@ public class PacMan extends JFrame {
                 cambiarMovimiento3++;
 
             }
-            
-            
+
         } else if (movimientoEnemigo3 == 4) {
-            
+
             int ejeX = enemigo3.getEjeX();
             int ejeY = enemigo3.getEjeY();
             int arriba = enemigo3.getEjeX() - 1;
@@ -1604,7 +1601,7 @@ public class PacMan extends JFrame {
                 int monedaX = coordenadasMoneda.getEjeX();
                 int monedaY = coordenadasMoneda.getEjeY();
 
-                if ((monedaX == arriba) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+                if ((monedaX == arriba) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
 
                     matriz[arriba][ejeY].removeAll();
                     matriz[arriba][ejeY].repaint();
@@ -1636,14 +1633,14 @@ public class PacMan extends JFrame {
                     movimientoEnemigo3 = (int) Math.floor(Math.random() * 4 + 1);
                 } while (movimientoEnemigo3 == 4);
                 cambiarMovimiento3 = 0;
-                  
+
             } else if (cambiarMovimiento3 == 5) {
                 colision = false;
                 do {
                     movimientoEnemigo3 = (int) Math.floor(Math.random() * 4 + 1);
                 } while (movimientoEnemigo3 == 4);
                 cambiarMovimiento3 = 0;
-            } else {                
+            } else {
                 matriz[abajo][ejeY].removeAll();
                 matriz[abajo][ejeY].repaint();
                 JLabel imagen = new JLabel();
@@ -1663,14 +1660,13 @@ public class PacMan extends JFrame {
                 cambiarMovimiento3++;
 
             }
-            
+
         }
 
-    
     }
-    
-    public void enemigo4(){
-        
+
+    public void enemigo4() {
+
         if (movimientoEnemigo4 == 1) {
             int ejeX = enemigo4.getEjeX();
             int ejeY = enemigo4.getEjeY();
@@ -1708,14 +1704,14 @@ public class PacMan extends JFrame {
                 }
             }
 
-            if (colision == true) {                
+            if (colision == true) {
                 colision = false;
                 do {
                     movimientoEnemigo4 = (int) Math.floor(Math.random() * 4 + 1);
                     System.out.println("cambio movimiento:" + movimientoEnemigo1);
                 } while (movimientoEnemigo4 == 1);
                 cambiarMovimiento4 = 0;
-                                               
+
             } else if (cambiarMovimiento4 == 5) {
                 colision = false;
                 do {
@@ -1723,13 +1719,13 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo1);
                 } while (movimientoEnemigo4 == 1);
                 cambiarMovimiento1 = 0;
-            }  else {
+            } else {
 
                 //reseteamos panel derecho
                 matriz[ejeX][derecha].removeAll();
                 matriz[ejeX][derecha].repaint();
                 JLabel imagen = new JLabel();
-                String nombre = "img/enemigos/enemigo3.png";
+                String nombre = "img/enemigos/enemigo4.png";
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -1788,7 +1784,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo1);
                 } while (movimientoEnemigo4 == 2);
                 cambiarMovimiento4 = 0;
-                  
+
             } else if (cambiarMovimiento4 == 5) {
                 colision = false;
                 do {
@@ -1802,7 +1798,7 @@ public class PacMan extends JFrame {
                 matriz[ejeX][izquierda].removeAll();
                 matriz[ejeX][izquierda].repaint();
                 JLabel imagen = new JLabel();
-                String nombre = "img/enemigos/enemigo3.png";
+                String nombre = "img/enemigos/enemigo4.png";
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -1820,7 +1816,7 @@ public class PacMan extends JFrame {
             }
 
         } else if (movimientoEnemigo4 == 3) {
-            
+
             int ejeX = enemigo4.getEjeX();
             int ejeY = enemigo4.getEjeY();
             int arriba = enemigo4.getEjeX() - 1;
@@ -1831,7 +1827,7 @@ public class PacMan extends JFrame {
                 int monedaX = coordenadasMoneda.getEjeX();
                 int monedaY = coordenadasMoneda.getEjeY();
 
-                if ((monedaX == abajo) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+                if ((monedaX == abajo) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
 
                     matriz[abajo][ejeY].removeAll();
                     matriz[abajo][ejeY].repaint();
@@ -1864,7 +1860,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo1);
                 } while (movimientoEnemigo4 == 3);
                 cambiarMovimiento4 = 0;
-                  
+
             } else if (cambiarMovimiento4 == 5) {
                 colision = false;
                 do {
@@ -1872,11 +1868,11 @@ public class PacMan extends JFrame {
                     System.out.println(movimientoEnemigo1);
                 } while (movimientoEnemigo4 == 3);
                 cambiarMovimiento4 = 0;
-            } else {                
+            } else {
                 matriz[arriba][ejeY].removeAll();
                 matriz[arriba][ejeY].repaint();
                 JLabel imagen = new JLabel();
-                String nombre = "img/enemigos/enemigo3.png";
+                String nombre = "img/enemigos/enemigo4.png";
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -1892,10 +1888,9 @@ public class PacMan extends JFrame {
                 cambiarMovimiento4++;
 
             }
-            
-            
+
         } else if (movimientoEnemigo4 == 4) {
-            
+
             int ejeX = enemigo4.getEjeX();
             int ejeY = enemigo4.getEjeY();
             int arriba = enemigo4.getEjeX() - 1;
@@ -1906,7 +1901,7 @@ public class PacMan extends JFrame {
                 int monedaX = coordenadasMoneda.getEjeX();
                 int monedaY = coordenadasMoneda.getEjeY();
 
-                if ((monedaX == arriba) && (monedaY ==ejeY ) && coordenadasMoneda.isEstado() == true) {
+                if ((monedaX == arriba) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
 
                     matriz[arriba][ejeY].removeAll();
                     matriz[arriba][ejeY].repaint();
@@ -1939,7 +1934,7 @@ public class PacMan extends JFrame {
                     System.out.println("cambio movimiento:" + movimientoEnemigo1);
                 } while (movimientoEnemigo4 == 4);
                 cambiarMovimiento4 = 0;
-                  
+
             } else if (cambiarMovimiento4 == 5) {
                 colision = false;
                 do {
@@ -1947,11 +1942,11 @@ public class PacMan extends JFrame {
                     System.out.println(movimientoEnemigo1);
                 } while (movimientoEnemigo4 == 4);
                 cambiarMovimiento4 = 0;
-            } else {                
+            } else {
                 matriz[abajo][ejeY].removeAll();
                 matriz[abajo][ejeY].repaint();
                 JLabel imagen = new JLabel();
-                String nombre = "img/enemigos/enemigo3.png";
+                String nombre = "img/enemigos/enemigo4.png";
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -1967,12 +1962,25 @@ public class PacMan extends JFrame {
                 cambiarMovimiento4++;
 
             }
-            
+
         }
 
-    
     }
-    
+
+    public void colisionConEnemigos() {
+
+        if ((Pacman.getEjeX() == enemigo1.getEjeX()) && (Pacman.getEjeY() == enemigo1.getEjeY())) {
+            JOptionPane.showMessageDialog(null, "game Over");
+        } else if ((Pacman.getEjeX() == enemigo2.getEjeX()) && (Pacman.getEjeY() == enemigo2.getEjeY())) {
+            JOptionPane.showMessageDialog(null, "game Over");
+        } else if((Pacman.getEjeX() == enemigo3.getEjeX()) && (Pacman.getEjeY() == enemigo3.getEjeY())){        
+            JOptionPane.showMessageDialog(null, "game Over");
+        } else if((Pacman.getEjeX() == enemigo4.getEjeX()) && (Pacman.getEjeY() == enemigo4.getEjeY())){        
+            JOptionPane.showMessageDialog(null, "game Over");
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
