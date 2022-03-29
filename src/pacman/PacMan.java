@@ -65,6 +65,7 @@ public class PacMan extends JFrame {
     //vidas
     JPanel vidas;
     JLabel vida1, vida2, vida3;
+    int vidasActuales = 3;
 
     Timer timer = new Timer(200, new ActionListener() {
         @Override
@@ -76,6 +77,7 @@ public class PacMan extends JFrame {
             enemigo3();
             enemigo4();
             colisionConEnemigos();
+            quitarVidas();
         }
     });
 
@@ -134,17 +136,26 @@ public class PacMan extends JFrame {
 
     public void vidas() {
         vidas = new JPanel();
-        vidas.setBounds(50, 100, 150, 75);
-        vidas.setForeground(Color.black);
+        vidas.setBounds(30, 120, 150, 75);
+        vidas.setOpaque(false);
         this.add(vidas);
         vida1 = new JLabel();
+        vida2 = new JLabel();
+        vida3 = new JLabel();
         //añadimos la imagen
         vida1.setBounds(0, 0, 50, 50);
+        vida2.setBounds(25, 0, 50, 50);
+        vida3.setBounds(50, 0, 50, 50);
         vidas.add(vida1);
+        vidas.add(vida2);
+        vidas.add(vida3);
         String ruta = "img/vida/vida.png";
         ImageIcon imageiconvida1 = new ImageIcon(ruta);
         Icon iconfondovida1 = new ImageIcon(imageiconvida1.getImage().getScaledInstance(30, 30, Image.SCALE_AREA_AVERAGING));
         vida1.setIcon(iconfondovida1);
+        vida2.setIcon(iconfondovida1);
+        vida3.setIcon(iconfondovida1);
+        
     }
 
     public void panel() {
@@ -1990,15 +2001,33 @@ public class PacMan extends JFrame {
     public void colisionConEnemigos() {
 
         if ((Pacman.getEjeX() == enemigo1.getEjeX()) && (Pacman.getEjeY() == enemigo1.getEjeY())) {
-            JOptionPane.showMessageDialog(null, "game Over");
+           vidasActuales--;
         } else if ((Pacman.getEjeX() == enemigo2.getEjeX()) && (Pacman.getEjeY() == enemigo2.getEjeY())) {
-            JOptionPane.showMessageDialog(null, "game Over");
+            vidasActuales--;
         } else if ((Pacman.getEjeX() == enemigo3.getEjeX()) && (Pacman.getEjeY() == enemigo3.getEjeY())) {
-            JOptionPane.showMessageDialog(null, "game Over");
+            vidasActuales--;
         } else if ((Pacman.getEjeX() == enemigo4.getEjeX()) && (Pacman.getEjeY() == enemigo4.getEjeY())) {
-            JOptionPane.showMessageDialog(null, "game Over");
+            vidasActuales--;
         }
-
+        System.out.println(vidasActuales);
+    }
+    
+    public void quitarVidas(){
+        
+        switch(vidasActuales) {
+			case 2:
+				vida3.setIcon(null);
+                                break;
+			case 1:
+				vida2.setIcon(null);
+                                break;
+			case 0:
+				vida1.setIcon(null);
+			default:
+				System.out.println("erros , no deberias estar aqui");
+		}
+    
+        
     }
 
     /**
