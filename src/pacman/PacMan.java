@@ -77,7 +77,7 @@ public class PacMan extends JFrame {
             enemigo3();
             enemigo4();
             colisionConEnemigos();
-            quitarVidas();
+            
         }
     });
 
@@ -2002,27 +2002,68 @@ public class PacMan extends JFrame {
 
         if ((Pacman.getEjeX() == enemigo1.getEjeX()) && (Pacman.getEjeY() == enemigo1.getEjeY())) {
            vidasActuales--;
+           quitarVidas();
+           JOptionPane.showMessageDialog(null, "Te quedan "+ vidasActuales+".");
         } else if ((Pacman.getEjeX() == enemigo2.getEjeX()) && (Pacman.getEjeY() == enemigo2.getEjeY())) {
             vidasActuales--;
+            quitarVidas();
+            JOptionPane.showMessageDialog(null, "Te quedan "+ vidasActuales+".");
         } else if ((Pacman.getEjeX() == enemigo3.getEjeX()) && (Pacman.getEjeY() == enemigo3.getEjeY())) {
             vidasActuales--;
+            quitarVidas();
+            JOptionPane.showMessageDialog(null, "Te quedan "+ vidasActuales+".");
         } else if ((Pacman.getEjeX() == enemigo4.getEjeX()) && (Pacman.getEjeY() == enemigo4.getEjeY())) {
             vidasActuales--;
+            quitarVidas();            
+            JOptionPane.showMessageDialog(null, "Te quedan "+ vidasActuales+".");
         }
         System.out.println(vidasActuales);
     }
+    
+    public void volverPosicion(){    
+        //pacman
+        matriz[Pacman.getEjeX()][Pacman.getEjeY()].removeAll();
+        matriz[Pacman.getEjeX()][Pacman.getEjeY()].repaint();        
+        Pacman.setEjeX(17);
+        Pacman.setEjeY(12);  
+        
+        //enemigo1
+        matriz[enemigo1.getEjeX()][enemigo1.getEjeY()].removeAll();
+        matriz[enemigo1.getEjeX()][enemigo1.getEjeY()].repaint(); 
+        enemigo1.setEjeX(1);
+        enemigo1.setEjeY(12);
+        
+        matriz[enemigo2.getEjeX()][enemigo2.getEjeY()].removeAll();
+        matriz[enemigo2.getEjeX()][enemigo2.getEjeY()].repaint();
+        enemigo2.setEjeX(23);
+        enemigo2.setEjeY(12);
+        
+        matriz[enemigo3.getEjeX()][enemigo3.getEjeY()].removeAll();
+        matriz[enemigo3.getEjeX()][enemigo3.getEjeY()].repaint();
+        enemigo3.setEjeX(11);
+        enemigo3.setEjeY(12);
+        
+        matriz[enemigo4.getEjeX()][enemigo4.getEjeY()].removeAll();
+        matriz[enemigo4.getEjeX()][enemigo4.getEjeY()].repaint();
+        enemigo4.setEjeX(15);
+        enemigo4.setEjeY(23);
+    
+    };
     
     public void quitarVidas(){
         
         switch(vidasActuales) {
 			case 2:
 				vida3.setIcon(null);
+                                volverPosicion();
                                 break;
 			case 1:
 				vida2.setIcon(null);
+                                volverPosicion();
                                 break;
 			case 0:
 				vida1.setIcon(null);
+                                JOptionPane.showMessageDialog(null, "Game Over");
 			default:
 				System.out.println("erros , no deberias estar aqui");
 		}
