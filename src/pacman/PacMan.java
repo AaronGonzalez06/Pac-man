@@ -2020,14 +2020,14 @@ public class PacMan extends JFrame {
         System.out.println(vidasActuales);
     }
     
-    public void volverPosicion(){    
+    public void volverPosicion(){
         //pacman
         matriz[Pacman.getEjeX()][Pacman.getEjeY()].removeAll();
         matriz[Pacman.getEjeX()][Pacman.getEjeY()].repaint();        
         Pacman.setEjeX(17);
         Pacman.setEjeY(12);  
         
-        //enemigo1
+        //enemigos
         matriz[enemigo1.getEjeX()][enemigo1.getEjeY()].removeAll();
         matriz[enemigo1.getEjeX()][enemigo1.getEjeY()].repaint(); 
         enemigo1.setEjeX(1);
@@ -2047,6 +2047,30 @@ public class PacMan extends JFrame {
         matriz[enemigo4.getEjeX()][enemigo4.getEjeY()].repaint();
         enemigo4.setEjeX(15);
         enemigo4.setEjeY(23);
+        
+        //volver a poner las monedas que se borran en la imagen 
+        
+                for (int x = 0; x < monedas.size(); x++) {
+                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+                int monedaX = coordenadasMoneda.getEjeX();
+                int monedaY = coordenadasMoneda.getEjeY();
+
+                if (coordenadasMoneda.isEstado() == true) {
+
+                    matriz[monedaX][monedaY].removeAll();
+                    matriz[monedaX][monedaY].repaint();
+
+                    JLabel imagen = new JLabel();
+                    String nombre = "img/moneda.png";
+                    ImageIcon imageicon = new ImageIcon(nombre);
+                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                    imagen.setIcon(icon);
+                    imagen.setBounds(0, 0, 22, 22);
+                    matriz[monedaX][monedaY].add(imagen);
+                    matriz[monedaX][monedaY].setBackground(Color.black);
+
+                }
+            }
     
     };
     
