@@ -67,6 +67,18 @@ public class PacMan extends JFrame {
     JLabel vida1, vida2, vida3;
     int vidasActuales = 3;
 
+    //movimiento pacman derecha
+    int derechaMovimiento = 3;
+    
+    //movimiento pacman izquierda
+    int izquierdaMovimiento = 3;
+    
+    //movimiento pacman arriba
+    int arribaMovimiento = 3;
+    
+    //movimiento pacman abajo
+    int abajoMovimiento = 3;
+
     Timer timer = new Timer(200, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -77,7 +89,7 @@ public class PacMan extends JFrame {
             enemigo3();
             enemigo4();
             colisionConEnemigos();
-            
+
         }
     });
 
@@ -88,7 +100,7 @@ public class PacMan extends JFrame {
         panel();
         logica();
         timer.start();
-        seguirMovimientos();
+        //seguirMovimientos();
     }
 
     public void ventana() {
@@ -155,7 +167,7 @@ public class PacMan extends JFrame {
         vida1.setIcon(iconfondovida1);
         vida2.setIcon(iconfondovida1);
         vida3.setIcon(iconfondovida1);
-        
+
     }
 
     public void panel() {
@@ -282,7 +294,7 @@ public class PacMan extends JFrame {
                     pared.add(new Estado(true, x, y));
                 } else if (x == 17 && y == 12) {
                     JLabel imagen = new JLabel();
-                    String nombre = "img/comecoco.png";
+                    String nombre = "img/pacman/right/3.png";
                     ImageIcon imageicon = new ImageIcon(nombre);
                     Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                     imagen.setIcon(icon);
@@ -366,7 +378,24 @@ public class PacMan extends JFrame {
                         matriz[ejeX][derecha].removeAll();
                         matriz[ejeX][derecha].repaint();
                         JLabel imagen = new JLabel();
-                        String nombre = "img/comecoco.png";
+                        String nombre = null;
+                        switch (derechaMovimiento) {
+                            case 1:
+                                nombre = "img/pacman/right/1.png";
+                                derechaMovimiento++;
+                                derechaMovimiento++;
+                                break;
+                            case 2:
+                                nombre = "img/pacman/right/2.png";
+                                derechaMovimiento--;
+                                break;
+                            case 3:
+                                nombre = "img/pacman/right/3.png";
+                                derechaMovimiento--;
+                                break;
+                            default:
+                                break;
+                        }
                         ImageIcon imageicon = new ImageIcon(nombre);
                         Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                         imagen.setIcon(icon);
@@ -420,7 +449,26 @@ public class PacMan extends JFrame {
                         matriz[ejeX][izquierda].repaint();
 
                         JLabel imagen = new JLabel();
-                        String nombre = "img/comecoco.png";
+                        String nombre = null;
+                        
+                        switch (izquierdaMovimiento) {
+                            case 1:
+                                nombre = "img/pacman/left/1.png";
+                                izquierdaMovimiento++;
+                                izquierdaMovimiento++;
+                                break;
+                            case 2:
+                                nombre = "img/pacman/left/2.png";
+                                izquierdaMovimiento--;
+                                break;
+                            case 3:
+                                nombre = "img/pacman/left/3.png";
+                                izquierdaMovimiento--;
+                                break;
+                            default:
+                                break;
+                        }
+                        
                         ImageIcon imageicon = new ImageIcon(nombre);
                         Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                         imagen.setIcon(icon);
@@ -476,7 +524,24 @@ public class PacMan extends JFrame {
                         matriz[arriba][ejeY].repaint();
 
                         JLabel imagen = new JLabel();
-                        String nombre = "img/comecoco.png";
+                        String nombre = null;
+                        switch (arribaMovimiento) {
+                            case 1:
+                                nombre = "img/pacman/up/1.png";
+                                arribaMovimiento++;
+                                arribaMovimiento++;
+                                break;
+                            case 2:
+                                nombre = "img/pacman/up/2.png";
+                                arribaMovimiento--;
+                                break;
+                            case 3:
+                                nombre = "img/pacman/up/3.png";
+                                arribaMovimiento--;
+                                break;
+                            default:
+                                break;
+                        }
                         ImageIcon imageicon = new ImageIcon(nombre);
                         Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                         imagen.setIcon(icon);
@@ -532,7 +597,24 @@ public class PacMan extends JFrame {
                         matriz[abajo][ejeY].repaint();
 
                         JLabel imagen = new JLabel();
-                        String nombre = "img/comecoco.png";
+                        String nombre = null;
+                        switch (abajoMovimiento) {
+                            case 1:
+                                nombre = "img/pacman/down/1.png";
+                                abajoMovimiento++;
+                                abajoMovimiento++;
+                                break;
+                            case 2:
+                                nombre = "img/pacman/down/2.png";
+                                abajoMovimiento--;
+                                break;
+                            case 3:
+                                nombre = "img/pacman/down/3.png";
+                                abajoMovimiento--;
+                                break;
+                            default:
+                                break;
+                        }
                         ImageIcon imageicon = new ImageIcon(nombre);
                         Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                         imagen.setIcon(icon);
@@ -602,7 +684,24 @@ public class PacMan extends JFrame {
                 matriz[ejeX][derecha].removeAll();
                 matriz[ejeX][derecha].repaint();
                 JLabel imagen = new JLabel();
-                String nombre = "img/comecoco.png";
+                String nombre = null;
+                        switch (derechaMovimiento) {
+                            case 1:
+                                nombre = "img/pacman/right/1.png";
+                                derechaMovimiento++;
+                                derechaMovimiento++;
+                                break;
+                            case 2:
+                                nombre = "img/pacman/right/2.png";
+                                derechaMovimiento--;
+                                break;
+                            case 3:
+                                nombre = "img/pacman/right/3.png";
+                                derechaMovimiento--;
+                                break;
+                            default:
+                                break;
+                        }
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -656,7 +755,25 @@ public class PacMan extends JFrame {
                 matriz[ejeX][izquierda].repaint();
 
                 JLabel imagen = new JLabel();
-                String nombre = "img/comecoco.png";
+                String nombre = null;
+                        
+                        switch (izquierdaMovimiento) {
+                            case 1:
+                                nombre = "img/pacman/left/1.png";
+                                izquierdaMovimiento++;
+                                izquierdaMovimiento++;
+                                break;
+                            case 2:
+                                nombre = "img/pacman/left/2.png";
+                                izquierdaMovimiento--;
+                                break;
+                            case 3:
+                                nombre = "img/pacman/left/3.png";
+                                izquierdaMovimiento--;
+                                break;
+                            default:
+                                break;
+                        }
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -711,7 +828,24 @@ public class PacMan extends JFrame {
                 matriz[arriba][ejeY].repaint();
 
                 JLabel imagen = new JLabel();
-                String nombre = "img/comecoco.png";
+                String nombre = null;
+                        switch (arribaMovimiento) {
+                            case 1:
+                                nombre = "img/pacman/up/1.png";
+                                arribaMovimiento++;
+                                arribaMovimiento++;
+                                break;
+                            case 2:
+                                nombre = "img/pacman/up/2.png";
+                                arribaMovimiento--;
+                                break;
+                            case 3:
+                                nombre = "img/pacman/up/3.png";
+                                arribaMovimiento--;
+                                break;
+                            default:
+                                break;
+                        }
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -766,7 +900,24 @@ public class PacMan extends JFrame {
                 matriz[abajo][ejeY].repaint();
 
                 JLabel imagen = new JLabel();
-                String nombre = "img/comecoco.png";
+                String nombre = null;
+                        switch (abajoMovimiento) {
+                            case 1:
+                                nombre = "img/pacman/down/1.png";
+                                abajoMovimiento++;
+                                abajoMovimiento++;
+                                break;
+                            case 2:
+                                nombre = "img/pacman/down/2.png";
+                                abajoMovimiento--;
+                                break;
+                            case 3:
+                                nombre = "img/pacman/down/3.png";
+                                abajoMovimiento--;
+                                break;
+                            default:
+                                break;
+                        }
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -2001,98 +2152,98 @@ public class PacMan extends JFrame {
     public void colisionConEnemigos() {
 
         if ((Pacman.getEjeX() == enemigo1.getEjeX()) && (Pacman.getEjeY() == enemigo1.getEjeY())) {
-           vidasActuales--;
-           quitarVidas();
-           JOptionPane.showMessageDialog(null, "Te quedan "+ vidasActuales+".");
+            vidasActuales--;
+            quitarVidas();
+            JOptionPane.showMessageDialog(null, "Te quedan " + vidasActuales + ".");
         } else if ((Pacman.getEjeX() == enemigo2.getEjeX()) && (Pacman.getEjeY() == enemigo2.getEjeY())) {
             vidasActuales--;
             quitarVidas();
-            JOptionPane.showMessageDialog(null, "Te quedan "+ vidasActuales+".");
+            JOptionPane.showMessageDialog(null, "Te quedan " + vidasActuales + ".");
         } else if ((Pacman.getEjeX() == enemigo3.getEjeX()) && (Pacman.getEjeY() == enemigo3.getEjeY())) {
             vidasActuales--;
             quitarVidas();
-            JOptionPane.showMessageDialog(null, "Te quedan "+ vidasActuales+".");
+            JOptionPane.showMessageDialog(null, "Te quedan " + vidasActuales + ".");
         } else if ((Pacman.getEjeX() == enemigo4.getEjeX()) && (Pacman.getEjeY() == enemigo4.getEjeY())) {
             vidasActuales--;
-            quitarVidas();            
-            JOptionPane.showMessageDialog(null, "Te quedan "+ vidasActuales+".");
+            quitarVidas();
+            JOptionPane.showMessageDialog(null, "Te quedan " + vidasActuales + ".");
         }
         System.out.println(vidasActuales);
     }
-    
-    public void volverPosicion(){
+
+    public void volverPosicion() {
         //pacman
         matriz[Pacman.getEjeX()][Pacman.getEjeY()].removeAll();
-        matriz[Pacman.getEjeX()][Pacman.getEjeY()].repaint();        
+        matriz[Pacman.getEjeX()][Pacman.getEjeY()].repaint();
         Pacman.setEjeX(17);
-        Pacman.setEjeY(12);  
-        
+        Pacman.setEjeY(12);
+
         //enemigos
         matriz[enemigo1.getEjeX()][enemigo1.getEjeY()].removeAll();
-        matriz[enemigo1.getEjeX()][enemigo1.getEjeY()].repaint(); 
+        matriz[enemigo1.getEjeX()][enemigo1.getEjeY()].repaint();
         enemigo1.setEjeX(1);
         enemigo1.setEjeY(12);
-        
+
         matriz[enemigo2.getEjeX()][enemigo2.getEjeY()].removeAll();
         matriz[enemigo2.getEjeX()][enemigo2.getEjeY()].repaint();
         enemigo2.setEjeX(23);
         enemigo2.setEjeY(12);
-        
+
         matriz[enemigo3.getEjeX()][enemigo3.getEjeY()].removeAll();
         matriz[enemigo3.getEjeX()][enemigo3.getEjeY()].repaint();
         enemigo3.setEjeX(11);
         enemigo3.setEjeY(12);
-        
+
         matriz[enemigo4.getEjeX()][enemigo4.getEjeY()].removeAll();
         matriz[enemigo4.getEjeX()][enemigo4.getEjeY()].repaint();
         enemigo4.setEjeX(15);
         enemigo4.setEjeY(23);
-        
+
         //volver a poner las monedas que se borran en la imagen 
-        
-                for (int x = 0; x < monedas.size(); x++) {
-                Moneda coordenadasMoneda = (Moneda) monedas.get(x);
-                int monedaX = coordenadasMoneda.getEjeX();
-                int monedaY = coordenadasMoneda.getEjeY();
+        for (int x = 0; x < monedas.size(); x++) {
+            Moneda coordenadasMoneda = (Moneda) monedas.get(x);
+            int monedaX = coordenadasMoneda.getEjeX();
+            int monedaY = coordenadasMoneda.getEjeY();
 
-                if (coordenadasMoneda.isEstado() == true) {
+            if (coordenadasMoneda.isEstado() == true) {
 
-                    matriz[monedaX][monedaY].removeAll();
-                    matriz[monedaX][monedaY].repaint();
+                matriz[monedaX][monedaY].removeAll();
+                matriz[monedaX][monedaY].repaint();
 
-                    JLabel imagen = new JLabel();
-                    String nombre = "img/moneda.png";
-                    ImageIcon imageicon = new ImageIcon(nombre);
-                    Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
-                    imagen.setIcon(icon);
-                    imagen.setBounds(0, 0, 22, 22);
-                    matriz[monedaX][monedaY].add(imagen);
-                    matriz[monedaX][monedaY].setBackground(Color.black);
+                JLabel imagen = new JLabel();
+                String nombre = "img/moneda.png";
+                ImageIcon imageicon = new ImageIcon(nombre);
+                Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+                imagen.setIcon(icon);
+                imagen.setBounds(0, 0, 22, 22);
+                matriz[monedaX][monedaY].add(imagen);
+                matriz[monedaX][monedaY].setBackground(Color.black);
 
-                }
             }
+        }
+
+    }
+
+    ;
     
-    };
-    
-    public void quitarVidas(){
-        
-        switch(vidasActuales) {
-			case 2:
-				vida3.setIcon(null);
-                                volverPosicion();
-                                break;
-			case 1:
-				vida2.setIcon(null);
-                                volverPosicion();
-                                break;
-			case 0:
-				vida1.setIcon(null);
-                                JOptionPane.showMessageDialog(null, "Game Over");
-			default:
-				System.out.println("erros , no deberias estar aqui");
-		}
-    
-        
+    public void quitarVidas() {
+
+        switch (vidasActuales) {
+            case 2:
+                vida3.setIcon(null);
+                volverPosicion();
+                break;
+            case 1:
+                vida2.setIcon(null);
+                volverPosicion();
+                break;
+            case 0:
+                vida1.setIcon(null);
+                JOptionPane.showMessageDialog(null, "Game Over");
+            default:
+                System.out.println("erros , no deberias estar aqui");
+        }
+
     }
 
     /**
