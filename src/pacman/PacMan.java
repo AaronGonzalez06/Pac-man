@@ -20,6 +20,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -69,13 +74,13 @@ public class PacMan extends JFrame {
 
     //movimiento pacman derecha
     int derechaMovimiento = 3;
-    
+
     //movimiento pacman izquierda
     int izquierdaMovimiento = 3;
-    
+
     //movimiento pacman arriba
     int arribaMovimiento = 3;
-    
+
     //movimiento pacman abajo
     int abajoMovimiento = 3;
 
@@ -91,13 +96,15 @@ public class PacMan extends JFrame {
             colisionConEnemigos();
 
         }
-    });
-
+    });    
+    
     public PacMan() {
         ventana();
         titulo();
         vidas();
         panel();
+        String ruta = "audio/intro.wav";
+        ReproducirSonido(ruta);        
         logica();
         timer.start();
         //seguirMovimientos();
@@ -325,6 +332,17 @@ public class PacMan extends JFrame {
         System.out.println(monedas.size());
     }
 
+    public void ReproducirSonido(String nombreSonido) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            System.out.println("Error al reproducir el sonido.");
+        }
+    }
+
     public void logica() {
         System.out.println(Pacman.getEjeX());
         System.out.println(Pacman.getEjeY());
@@ -355,6 +373,8 @@ public class PacMan extends JFrame {
                         int monedaY = coordenadasMoneda.getEjeY();
 
                         if ((monedaX == ejeX) && (monedaY == derecha) && coordenadasMoneda.isEstado() == true) {
+                            String ruta = "audio/sonidoMonedas.wav";
+                            ReproducirSonido(ruta);
                             System.out.println("yes");
                             puntuacion.setText("Puntuación: " + num++);
                             coordenadasMoneda.setEstado(false);
@@ -426,6 +446,9 @@ public class PacMan extends JFrame {
                         int monedaY = coordenadasMoneda.getEjeY();
 
                         if ((monedaX == ejeX) && (monedaY == izquierda) && coordenadasMoneda.isEstado() == true) {
+
+                            String ruta = "audio/sonidoMonedas.wav";
+                            ReproducirSonido(ruta);
                             System.out.println("yes");
                             puntuacion.setText("Puntuación: " + num++);
                             coordenadasMoneda.setEstado(false);
@@ -450,7 +473,7 @@ public class PacMan extends JFrame {
 
                         JLabel imagen = new JLabel();
                         String nombre = null;
-                        
+
                         switch (izquierdaMovimiento) {
                             case 1:
                                 nombre = "img/pacman/left/1.png";
@@ -468,7 +491,7 @@ public class PacMan extends JFrame {
                             default:
                                 break;
                         }
-                        
+
                         ImageIcon imageicon = new ImageIcon(nombre);
                         Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                         imagen.setIcon(icon);
@@ -502,6 +525,8 @@ public class PacMan extends JFrame {
 
                         if ((monedaX == arriba) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
                             System.out.println("yes");
+                            String ruta = "audio/sonidoMonedas.wav";
+                            ReproducirSonido(ruta);
                             puntuacion.setText("Puntuación: " + num++);
                             coordenadasMoneda.setEstado(false);
                         }
@@ -574,6 +599,8 @@ public class PacMan extends JFrame {
                         int monedaY = coordenadasMoneda.getEjeY();
 
                         if ((monedaX == abajo) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
+                            String ruta = "audio/sonidoMonedas.wav";
+                            ReproducirSonido(ruta);
                             System.out.println("yes");
                             puntuacion.setText("Puntuación: " + num++);
                             coordenadasMoneda.setEstado(false);
@@ -662,6 +689,8 @@ public class PacMan extends JFrame {
 
                 if ((monedaX == ejeX) && (monedaY == derecha) && coordenadasMoneda.isEstado() == true) {
                     System.out.println("yes");
+                    String ruta = "audio/sonidoMonedas.wav";
+                    ReproducirSonido(ruta);
                     puntuacion.setText("Puntuación: " + num++);
                     coordenadasMoneda.setEstado(false);
                 }
@@ -685,23 +714,23 @@ public class PacMan extends JFrame {
                 matriz[ejeX][derecha].repaint();
                 JLabel imagen = new JLabel();
                 String nombre = null;
-                        switch (derechaMovimiento) {
-                            case 1:
-                                nombre = "img/pacman/right/1.png";
-                                derechaMovimiento++;
-                                derechaMovimiento++;
-                                break;
-                            case 2:
-                                nombre = "img/pacman/right/2.png";
-                                derechaMovimiento--;
-                                break;
-                            case 3:
-                                nombre = "img/pacman/right/3.png";
-                                derechaMovimiento--;
-                                break;
-                            default:
-                                break;
-                        }
+                switch (derechaMovimiento) {
+                    case 1:
+                        nombre = "img/pacman/right/1.png";
+                        derechaMovimiento++;
+                        derechaMovimiento++;
+                        break;
+                    case 2:
+                        nombre = "img/pacman/right/2.png";
+                        derechaMovimiento--;
+                        break;
+                    case 3:
+                        nombre = "img/pacman/right/3.png";
+                        derechaMovimiento--;
+                        break;
+                    default:
+                        break;
+                }
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -732,6 +761,8 @@ public class PacMan extends JFrame {
                 int monedaY = coordenadasMoneda.getEjeY();
 
                 if ((monedaX == ejeX) && (monedaY == izquierda) && coordenadasMoneda.isEstado() == true) {
+                    String ruta = "audio/sonidoMonedas.wav";
+                    ReproducirSonido(ruta);
                     System.out.println("yes");
                     puntuacion.setText("Puntuación: " + num++);
                     coordenadasMoneda.setEstado(false);
@@ -756,24 +787,24 @@ public class PacMan extends JFrame {
 
                 JLabel imagen = new JLabel();
                 String nombre = null;
-                        
-                        switch (izquierdaMovimiento) {
-                            case 1:
-                                nombre = "img/pacman/left/1.png";
-                                izquierdaMovimiento++;
-                                izquierdaMovimiento++;
-                                break;
-                            case 2:
-                                nombre = "img/pacman/left/2.png";
-                                izquierdaMovimiento--;
-                                break;
-                            case 3:
-                                nombre = "img/pacman/left/3.png";
-                                izquierdaMovimiento--;
-                                break;
-                            default:
-                                break;
-                        }
+
+                switch (izquierdaMovimiento) {
+                    case 1:
+                        nombre = "img/pacman/left/1.png";
+                        izquierdaMovimiento++;
+                        izquierdaMovimiento++;
+                        break;
+                    case 2:
+                        nombre = "img/pacman/left/2.png";
+                        izquierdaMovimiento--;
+                        break;
+                    case 3:
+                        nombre = "img/pacman/left/3.png";
+                        izquierdaMovimiento--;
+                        break;
+                    default:
+                        break;
+                }
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -806,6 +837,8 @@ public class PacMan extends JFrame {
 
                 if ((monedaX == arriba) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
                     System.out.println("yes");
+                    String ruta = "audio/sonidoMonedas.wav";
+                    ReproducirSonido(ruta);
                     puntuacion.setText("Puntuación: " + num++);
                     coordenadasMoneda.setEstado(false);
                 }
@@ -829,23 +862,23 @@ public class PacMan extends JFrame {
 
                 JLabel imagen = new JLabel();
                 String nombre = null;
-                        switch (arribaMovimiento) {
-                            case 1:
-                                nombre = "img/pacman/up/1.png";
-                                arribaMovimiento++;
-                                arribaMovimiento++;
-                                break;
-                            case 2:
-                                nombre = "img/pacman/up/2.png";
-                                arribaMovimiento--;
-                                break;
-                            case 3:
-                                nombre = "img/pacman/up/3.png";
-                                arribaMovimiento--;
-                                break;
-                            default:
-                                break;
-                        }
+                switch (arribaMovimiento) {
+                    case 1:
+                        nombre = "img/pacman/up/1.png";
+                        arribaMovimiento++;
+                        arribaMovimiento++;
+                        break;
+                    case 2:
+                        nombre = "img/pacman/up/2.png";
+                        arribaMovimiento--;
+                        break;
+                    case 3:
+                        nombre = "img/pacman/up/3.png";
+                        arribaMovimiento--;
+                        break;
+                    default:
+                        break;
+                }
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
@@ -878,6 +911,8 @@ public class PacMan extends JFrame {
 
                 if ((monedaX == abajo) && (monedaY == ejeY) && coordenadasMoneda.isEstado() == true) {
                     System.out.println("yes");
+                    String ruta = "audio/sonidoMonedas.wav";
+                    ReproducirSonido(ruta);
                     puntuacion.setText("Puntuación: " + num++);
                     coordenadasMoneda.setEstado(false);
                 }
@@ -901,23 +936,23 @@ public class PacMan extends JFrame {
 
                 JLabel imagen = new JLabel();
                 String nombre = null;
-                        switch (abajoMovimiento) {
-                            case 1:
-                                nombre = "img/pacman/down/1.png";
-                                abajoMovimiento++;
-                                abajoMovimiento++;
-                                break;
-                            case 2:
-                                nombre = "img/pacman/down/2.png";
-                                abajoMovimiento--;
-                                break;
-                            case 3:
-                                nombre = "img/pacman/down/3.png";
-                                abajoMovimiento--;
-                                break;
-                            default:
-                                break;
-                        }
+                switch (abajoMovimiento) {
+                    case 1:
+                        nombre = "img/pacman/down/1.png";
+                        abajoMovimiento++;
+                        abajoMovimiento++;
+                        break;
+                    case 2:
+                        nombre = "img/pacman/down/2.png";
+                        abajoMovimiento--;
+                        break;
+                    case 3:
+                        nombre = "img/pacman/down/3.png";
+                        abajoMovimiento--;
+                        break;
+                    default:
+                        break;
+                }
                 ImageIcon imageicon = new ImageIcon(nombre);
                 Icon icon = new ImageIcon(imageicon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
                 imagen.setIcon(icon);
