@@ -331,7 +331,7 @@ public class PacMan extends JFrame {
         System.out.println(monedas.size());
     }
 
-    public void ReproducirSonidoIntro() throws InterruptedException {
+    public void ReproducirSonidoIntro() {
         try {
             String nombreSonido = "audio/intro.wav";
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido).getAbsoluteFile());
