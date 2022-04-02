@@ -96,15 +96,14 @@ public class PacMan extends JFrame {
             colisionConEnemigos();
 
         }
-    });    
-    
+    });
+
     public PacMan() {
         ventana();
         titulo();
         vidas();
         panel();
-        String ruta = "audio/intro.wav";
-        ReproducirSonido(ruta);        
+        ReproducirSonidoIntro();
         logica();
         timer.start();
         //seguirMovimientos();
@@ -330,6 +329,18 @@ public class PacMan extends JFrame {
 
         this.add(panel);
         System.out.println(monedas.size());
+    }
+
+    public void ReproducirSonidoIntro() throws InterruptedException {
+        try {
+            String nombreSonido = "audio/intro.wav";
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();                                    
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            System.out.println("Error al reproducir el sonido.");
+        }
     }
 
     public void ReproducirSonido(String nombreSonido) {
